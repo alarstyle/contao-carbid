@@ -7,7 +7,8 @@ Extension was created to improve Contao backend interface.
 
 License
 -------
-[MIT](LICENSE)
+[The MIT License](LICENSE)
+
 Copyright &copy; Alexander Stulnikov
 
 
