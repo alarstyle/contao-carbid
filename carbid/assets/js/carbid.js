@@ -5,7 +5,7 @@
  *
  * @package    Carbid
  * @link       https://github.com/alarstyle/contao-carbid
- * @license    http://opensource.org/licenses/lgpl-3.0.html
+ * @license    http://opensource.org/licenses/MIT
  */
 
 (function(Backend) {
