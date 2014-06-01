@@ -8,6 +8,8 @@
  * @license    http://opensource.org/licenses/MIT
  */
 
+$bodyBgColor:    #1e3036;
+
 $successBgColor: #60c020;
 $infoBgColor:    #5c9ffa;
 $errorBgColor:   #cc324b;
@@ -20,18 +22,12 @@ $btnHoverBgColor:  #408dbf;
 $btnActiveBgColor: #2a719e;
 
 html {
-    background: #0d161e;
+    background: $bodyBgColor;
     overflow-y: scroll;
     height: 100%;
 }
 body {
-    background: #0f1f2c;
-    background: url("../images/bg.jpg") no-repeat 50% 50%, -moz-linear-gradient(top,  rgba(15,32,42,1) 0%, rgba(36,70,80,1) 100%);
-    background: url("../images/bg.jpg") no-repeat 50% 50%, -webkit-gradient(linear, left top, left bottom, color-stop(0%,rgba(15,32,42,1)), color-stop(100%,rgba(36,70,80,1)));
-    background: url("../images/bg.jpg") no-repeat 50% 50%, -webkit-linear-gradient(top,  rgba(15,32,42,1) 0%,rgba(36,70,80,1) 100%);
-    background: url("../images/bg.jpg") no-repeat 50% 50%, -o-linear-gradient(top,  rgba(15,32,42,1) 0%,rgba(36,70,80,1) 100%);
-    background: url("../images/bg.jpg") no-repeat 50% 50%, -ms-linear-gradient(top,  rgba(15,32,42,1) 0%,rgba(36,70,80,1) 100%);
-    background: url("../images/bg.jpg") no-repeat 50% 50%, linear-gradient(to bottom,  rgba(15,32,42,1) 0%,rgba(36,70,80,1) 100%);
+    background: $bodyBgColor url("../images/bg.jpg") no-repeat 50% 50%;
     background-size: cover;
     position: relative;
     min-height: 100%;
@@ -1006,20 +1002,19 @@ li.tl_file_list:hover * {
 .w50 {
     /*min-height: 84px;*/
     height: auto;
-    /*float: none;*/
+    float: none;
     display: inline-block;
     vertical-align: top;
-    width: 49%;
+    width: 50%;
     -webkit-box-sizing: border-box;
     -moz-box-sizing:    border-box;
     box-sizing:         border-box;
+    margin-left: -1px;
+    padding-left: 1px;
     .tl_textarea {
         min-width: 310px;
         max-width: 310px;
     }
-}
-.w50 + div:not(.w50) {
-    clear: both;
 }
 .cbx {
     height: 48px;
@@ -1038,23 +1033,21 @@ fieldset.tl_box {
     border-top: 3px solid #5a7d86;
     padding-bottom: 10px !important;
     margin-bottom: 15px !important;
+    font-size: 1px;
+    &>legend {
+        background: url("../images/palOpen.png") no-repeat -1px 50%;
+        margin-left: 10px;
+        font-size: 12px;
+        font-weight: bold;
+        text-transform: uppercase;
+        color: #5a7d86;
+    }
 }
 fieldset.collapsed {
     padding-bottom: 0px !important;
-}
-fieldset.collapsed div {
-}
-fieldset.tl_tbox>legend,
-fieldset.tl_box>legend {
-    background: url("../images/palOpen.png") no-repeat -1px 50%;
-    margin-left: 10px;
-    font-size: 12px;
-    font-weight: bold;
-    text-transform: uppercase;
-    color: #5a7d86;
-}
-fieldset.collapsed>legend {
-    background: url("../images/palCollapsed.png") no-repeat -1px 50%;
+    &>legend {
+        background: url("../images/palCollapsed.png") no-repeat -1px 50%;
+    }
 }
 
 fieldset.tl_checkbox_container legend,
@@ -1102,22 +1095,23 @@ a.btn.primary:hover {
     transition:         all 0.2s ease;
 }
 
-.tl_submit:hover,
-a.btn.primary:hover {
-    background: $btnHoverBgColor !important;
-}
-.tl_submit:active,
-a.btn.primary:active {
-    background: $btnActiveBgColor !important;
-    -webkit-box-shadow: none;
-    -moz-box-shadow:    none;
-    box-shadow:         none;
-}
-.tl_submit:focus {
-    outline: none;
-    -webkit-box-shadow: none;
-    -moz-box-shadow:    none;
-    box-shadow:         none;
+.tl_submit
+a.btn.primary {
+    &:hover {
+        background: $btnHoverBgColor !important;
+    }
+    &:active {
+        background: $btnActiveBgColor !important;
+        -webkit-box-shadow: none;
+        -moz-box-shadow:    none;
+        box-shadow:         none;
+    }
+    &:focus {
+        outline: none;
+        -webkit-box-shadow: none;
+        -moz-box-shadow:    none;
+        box-shadow:         none;
+    }
 }
 .tl_submit:disabled,
 .tl_submit_container .tl_submit:disabled {
@@ -1856,7 +1850,7 @@ div.tl_labels.ok {
     opacity: 0.7;
 }
 #tl_ajaxBox {
-    background: #1f253d;
+    background: #1e3036;
     border: 0;
     color: #fff;
     position: fixed;

@@ -11,4 +11,4 @@ License
 Copyright &copy; 2014 Alexander Stulnikov
 
 
-  [1]: docs/sreen_general.png "Carbid screenshot"
+  [1]: docs/sreen_general.jpg "Carbid screenshot"
