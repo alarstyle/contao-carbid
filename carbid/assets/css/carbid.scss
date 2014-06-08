@@ -8,18 +8,90 @@
  * @license    http://opensource.org/licenses/MIT
  */
 
-$bodyBgColor:    #1e3036;
+/***   COLORS   ***/
 
-$successBgColor: #60c020;
-$infoBgColor:    #5c9ffa;
-$errorBgColor:   #cc324b;
-$msgTextColor:   #ffffff;
-$msgLinkColor:   #ffffff;
+$bodyBgColor:                       #293c40;
 
-$btnTextColor:     #ffffff;
-$btnBgColor:       #347faf;
-$btnHoverBgColor:  #408dbf;
-$btnActiveBgColor: #2a719e;
+$successBgColor:                    #60c020;
+$infoBgColor:                       #5c9ffa;
+$errorBgColor:                      #cc324b;
+$msgTextColor:                      #ffffff;
+$msgLinkColor:                      #ffffff;
+
+$btnBgColor:                        #347faf;
+$btnHoverBgColor:                   #408dbf;
+$btnActiveBgColor:                  #2a719e;
+$btnTextColor:                      #fff;
+$btnActiveTextColor:                #bbb;
+
+$inputBgColor:                      #131c1d;
+$inputBorderColor:                  #111;
+$inputFocusBorderColor:             #11a8ab;
+$inputTextColor:                    #fff;
+
+/* datepicker */
+$dpBgColor:                     #23343a;
+$dpHeaderBgColor:               #000;
+$dpBorderColor:                 #111;
+$dpDayColor:                    #fff;
+$dpDay2Color:                   #999;
+$dpDayOfTheWeekColor:           #5a7d86;
+$dpTitleHoverBgColor:           rgba(0,0,0,.3);
+$dpArrowColor:                  #fff;
+
+
+
+/***   MIXINS   ***/
+
+@mixin disableSelecting() {
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+
+@mixin simpleBtn() {
+    color: $btnTextColor !important;
+    cursor: pointer;
+    background: $btnBgColor !important;
+    border: 0 !important;
+    border-radius: 3px;
+    display: inline-block !important;
+    font: bold 13px/32px "Trebuchet MS",Verdana,sans-serif !important;
+    text-align: center;
+    text-shadow: none !important;
+    vertical-align: middle !important;
+    margin-top: 0 !important;
+    min-width: 80px;
+    padding: 0 10px !important;
+    text-decoration: none !important;
+    height: 32px;
+    -moz-box-sizing:    border-box;
+    -webkit-box-sizing: border-box;
+    box-sizing:         border-box;
+    -webkit-box-shadow: none !important;
+    -moz-box-shadow:    none !important;
+    box-shadow:         none !important;
+    -webkit-transition: all 0.2s ease;
+    -moz-transition:    all 0.2s ease;
+    -ms-transition:     all 0.2s ease;
+    -o-transition:      all 0.2s ease;
+    transition:         all 0.2s ease;
+    &:hover {
+        background: $btnHoverBgColor !important;
+    }
+    &:active {
+        background: $btnActiveBgColor !important;
+        color: $btnActiveTextColor !important;
+    }
+    &:focus {
+        outline: none;
+    }
+}
+
+
+/*** STYLES ***/
 
 html {
     background: $bodyBgColor;
@@ -79,16 +151,22 @@ pre {
 }
 
 
-#header span a,
-#footer a {
-    color: #aaa;
-}
-#footer a:hover {
-    text-decoration: underline;
-}
-
-#container {
+#container,
+#footer {
     width: 990px;
+    -moz-box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+}
+#footer {
+    padding-right: 15px;
+    padding-left: 15px;
+    a {
+        color: #aaa;
+        &:hover {
+            text-decoration: underline;
+        }
+    }
 }
 
 #left {
@@ -185,9 +263,6 @@ h1.main_headline {
 }
 .tl_text {
     /*width: 180px;*/
-}
-.tl_login_form .tl_text {
-    width: 180px;
 }
 .tl_panel .tl_select,
 .tl_panel .tl_text,
@@ -820,9 +895,10 @@ li.tl_file_list:hover * {
 .tl_select_column,
 .tl_select_unit,
 .tl_select_interval {
-    background: #131c1d !important;
-    border: 1px solid #111 !important;
+    background: $inputBgColor !important;
+    border: 1px solid $inputBorderColor !important;
     border-radius: 4px;
+    color: $inputTextColor;
     padding: 6px 8px !important;
     -moz-box-sizing: border-box;
     -webkit-box-sizing: border-box;
@@ -852,8 +928,7 @@ li.tl_file_list:hover * {
 .tl_select_interval:focus,
 .tl_select_interval.focused,
 .tl_select_interval.chzn-container-active {
-    background: #50597b;
-    border-color: #11a8ab !important;
+    border-color: $inputFocusBorderColor !important;
     outline: none !important;
 }
 .tl_textarea {
@@ -923,7 +998,7 @@ li.tl_file_list:hover * {
         color: #fff;
     }
     optgroup {
-        background: #131c1d;
+        background: $inputBgColor;
     }
     span {
         padding: 0 0 0 3px;
@@ -963,8 +1038,8 @@ li.tl_file_list:hover * {
 .chzn-container {
     vertical-align: middle;
     .chzn-drop {
-        background: #131c1d;
-        border: 1px solid #11a8ab !important;
+        background: $inputBgColor;
+        border: 1px solid $inputFocusBorderColor !important;
         border-top: 0 !important;
         border-radius: 0 0 4px 4px !important;
         margin: -3px 0 0 -1px;
@@ -1068,50 +1143,8 @@ fieldset.tl_radio_container legend {
 }
 
 .tl_submit,
-.tl_submit:hover,
-a.btn.primary,
-a.btn.primary:hover {
-    background: $btnBgColor !important;
-    text-shadow: none;
-    border: 0 !important;
-    padding: 9px 10px 9px 10px !important;
-    color: $btnTextColor !important;
-    display: inline-block !important;
-    vertical-align: middle !important;
-    font: bold 13px "Trebuchet MS",Verdana,sans-serif !important;
-    margin-top: 0 !important;
-    text-shadow: none !important;
-    text-align: center;
-    min-width: 80px;
-    cursor: pointer;
-    text-decoration: none !important;
-    -webkit-box-shadow: none;
-    -moz-box-shadow:    none;
-    box-shadow:         none;
-    -webkit-transition: all 0.2s ease;
-    -moz-transition:    all 0.2s ease;
-    -ms-transition:     all 0.2s ease;
-    -o-transition:      all 0.2s ease;
-    transition:         all 0.2s ease;
-}
-
-.tl_submit
 a.btn.primary {
-    &:hover {
-        background: $btnHoverBgColor !important;
-    }
-    &:active {
-        background: $btnActiveBgColor !important;
-        -webkit-box-shadow: none;
-        -moz-box-shadow:    none;
-        box-shadow:         none;
-    }
-    &:focus {
-        outline: none;
-        -webkit-box-shadow: none;
-        -moz-box-shadow:    none;
-        box-shadow:         none;
-    }
+    @include simpleBtn;
 }
 .tl_submit:disabled,
 .tl_submit_container .tl_submit:disabled {
@@ -1785,13 +1818,9 @@ fieldset.tl_checkbox_tree {
         top: 4px;
     }
     &>label {
+        @include disableSelecting;
         padding: 5px 0 5px 26px;
         width: 100%;
-        -webkit-touch-callout: none;
-        -webkit-user-select: none;
-        -moz-user-select: none;
-        -ms-user-select: none;
-        user-select: none;
         -moz-box-sizing: border-box;
         -webkit-box-sizing: border-box;
         box-sizing: border-box;
@@ -2031,8 +2060,185 @@ body.popup {
     .tl_login_form {
         width: auto;
         margin: 15px auto 20px;
+        .tl_text {
+            width: 180px;
+        }
     }
 }
+
+
+/*
+ * Datepicker
+ */
+.datepicker_dashboard,   /* for Contao 3.2.x */
+.datepicker_bootstrap {  /* for Contao 3.3.x */
+    background: $dpBgColor;
+    border: 1px solid $dpBorderColor;
+    border-radius: 0;
+    font: 11px Arial !important;
+    width: 190px !important;
+    height: 170px !important;
+    padding: 10px !important;
+    margin-top: -10px;
+    -webkit-box-shadow: 0px 2px 3px rgba(0,0,0,0.5);
+    -moz-box-shadow:    0px 2px 3px rgba(0,0,0,0.5);
+    box-shadow:         0px 2px 3px rgba(0,0,0,0.5);
+    table {
+        width: 100%;
+        height: 100%;
+        text-align: center;
+        th,
+        td {
+            float: none !important;
+            text-transform: none !important;
+            font: 11px Arial !important;
+            text-align: center;
+            width: 27px !important;
+        }
+        th {
+            color: $dpDayOfTheWeekColor !important;
+            padding: 2px 0 4px 0 !important;
+            height: auto !important;
+        }
+        td {
+            border: 0;
+            color: $dpDayColor;
+            border-radius: 4px !important;
+            padding: 0 !important;
+            &:hover {
+                background: $dpTitleHoverBgColor !important;
+                color: $dpDayColor !important;
+            }
+        }
+        .selected {
+            color: $dpDayColor !important;
+            background: rgba(0,0,0,.2) !important;
+        }
+        .otherMonth {
+            color: $dpDay2Color !important;
+        }
+    }
+    .header {
+        @include disableSelecting;
+        padding: 0 !important;
+        border-bottom: 1px solid #5a7d86 !important;
+        font-weight: bold;
+        text-align: center;
+        position: relative;
+        height: 30px !important;
+        margin-bottom: 5px;
+        .previous,
+        .next {
+            background: none !important;
+            border: 0 !important;
+            border-radius: 4px;
+            width: 22px;
+            height: 22px;
+            top: 0 !important;
+            left: 0 !important;
+            font-size: 1px;
+            color: transparent;
+            &:before {
+                background: none !important;
+                border-top: 6px solid transparent;
+                border-bottom: 6px solid transparent;
+                border-right: 6px solid $dpArrowColor;
+                content: '';
+                display: block;
+                width: 0;
+                height: 0;
+                margin: 5px 0 0 7px;
+            }
+            &:hover {
+                background: $dpTitleHoverBgColor !important;
+            }
+        }
+        .next {
+            left: auto !important;
+            right: 0 !important;
+            &:before {
+                border-right: 0;
+                border-left: 6px solid $dpArrowColor;
+                margin-left: 9px;
+            }
+        }
+        .title {
+            margin: 0 !important;
+        }
+        .titleText {
+            background: transparent !important;
+            border-radius: 4px;
+            display: inline-block !important;
+            padding: 4px 10px 5px 10px !important;
+            vertical-align: middle;
+            &:hover {
+                background: $dpTitleHoverBgColor !important;
+            }
+        }
+    }
+    .body {
+        width: auto !important;
+        height: 140px !important;
+        margin-top: 0 !important;
+        left: 0;
+        .slider>div>div {
+            width: 100%;
+            height: 100%;
+        }
+    }
+    .time {
+        position: relative;
+        width: 140px;
+        margin: 17px auto 0 auto;
+        padding: 0;
+        height: auto;
+        text-align: center;
+        .hour,
+        .minutes {
+            background: $inputBgColor !important;
+            border: 1px solid $inputBorderColor !important;
+            border-radius: 4px;
+            color: $inputTextColor;
+            width: 50px;
+            font-size: 32px;
+            position: absolute;
+            top: 0;
+            text-align: center;
+            padding: 2px;
+            &:focus {
+                outline: none;
+                border-color: $inputFocusBorderColor !important;
+            }
+        }
+        .hour {
+            left: 0;
+        }
+        .minutes {
+            left: auto;
+            right: 0;
+        }
+        .separator {
+            position: absolute;
+            left: 63px;
+            top: 3px;
+            width: 10px;
+            text-align: center;
+            font-size: 32px;
+            padding: 0;
+        }
+        .ok {
+            @include simpleBtn;
+            position: absolute;
+            left: 0;
+            top: 62px;
+            width: 100%;
+        }
+    }
+}
+.datepicker_dashboard {   /* for Contao 3.2.x */
+    margin: -37px 0 0 -14px;
+}
+
 
 
 /*
@@ -2064,5 +2270,21 @@ body.popup {
         &:hover {
             opacity: 1;
         }
+    }
+}
+
+
+/*
+ * Debug bar
+ */
+#debug {
+    p {
+        left: 0;
+    }
+    &>div {
+        left: 0;
+    }
+    pre {
+        border: 0;
     }
 }
