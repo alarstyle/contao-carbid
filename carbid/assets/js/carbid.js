@@ -9,15 +9,46 @@
  */
 
 (function(Backend) {
+
+    /**
+     * Highlight element on mouse over delete icon
+     */
+    function initElementActonsHighlight() {
+        var elements, i;
+        // metadata
+        elements = document.querySelectorAll('#ctrl_meta li');
+        for (i = 0; i < elements.length; i++) {
+            var img = elements[i].getElementsByClassName('tl_metawizard_img')[0];
+            if (img) {
+                img.elementContainer = elements[i];
+                img.setAttribute('onmouseover', 'Carbid.elementHighlight(this, "deleteAction")');
+                img.setAttribute('onmouseout', 'Carbid.elementHighlight(this, "deleteAction", true)');
+            }
+        }
+
+        elements = document.querySelectorAll('.tl_listing_container tr, .tl_listing_container .tl_content, .tl_listing_container .tl_folder, .tl_listing_container .tl_file ');
+        for (i = 0; i < elements.length; i++) {
+            var anchor = elements[i].getElementsByClassName('delete')[0];
+            if (anchor) {
+                anchor.elementContainer = elements[i];
+                anchor.setAttribute('onmouseover', 'Carbid.elementHighlight(this, "deleteAction")');
+                anchor.setAttribute('onmouseout', 'Carbid.elementHighlight(this, "deleteAction", true)');
+            }
+        }
+
+    }
+
     window.addEvent('domready', function() {
 
         function getUrlVars() {
             var vars = {};
-            var parts = window.location.href.replace(/[?&]+([^=&]+)=([^&]*)/gi, function(m,key,value) {
+            window.location.href.replace(/[?&]+([^=&]+)=([^&]*)/gi, function(m,key,value) {
                 vars[key] = value;
             });
             return vars;
         }
+
+        initElementActonsHighlight();
 
         var reload1 = document.getElementById('filter'),
             reload2 = document.getElementById('btfilter'),
@@ -57,6 +88,27 @@
 })(window.Backend);
 
 Carbid = {
+
+    /**
+     *
+     * @param el
+     * @param className
+     * @param remove
+     */
+    elementHighlight: function(el, className, remove) {
+        if (!el.elementContainer) {
+            el.elementContainer = el.parentNode.parentNode;
+            //if (el.elementContainer.tagName != 'li' && el.elementContainer.tagName != 'tr' && el.elementContainer.tagName != 'LI' && el.elementContainer.tagName != 'TR') return;
+        }
+        if (!remove) {
+            el.elementContainer.className = el.elementContainer.className + ' deleteAction';
+        }
+        else {
+            el.elementContainer.className = el.elementContainer.className.replace(' deleteAction', '');
+        }
+    },
+
+
     /**
      * Key/value wizard
      *

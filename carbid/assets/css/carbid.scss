@@ -41,6 +41,12 @@ $dpArrowColor:                  #fff;
 
 
 
+/***   WIDTH   ***/
+$smallWidth:   767px;
+$mediumWidth:  991px;
+
+
+
 /***   MIXINS   ***/
 
 @mixin disableSelecting() {
@@ -55,6 +61,14 @@ $dpArrowColor:                  #fff;
     -webkit-box-sizing: border-box;
     -moz-box-sizing:    border-box;
     box-sizing:         border-box;
+}
+
+@mixin transition($transitions ...) {
+    -webkit-transition: $transitions;
+    -moz-transition:    $transitions;
+    -ms-transition:     $transitions;
+    -o-transition:      $transitions;
+    transition:         $transitions;
 }
 
 @mixin simpleBtn() {
@@ -584,13 +598,41 @@ h2.sub_headline_index {
     background: none;
     box-shadow: none;
 }
-.tl_metawizard li {
-    background: #394264;
-    border-radius: 4px;
+
+.tl_metawizard {
+    li {
+        background: rgba(255,255,255,.04);
+        border: 1px solid;
+        border-color: rgba(255,255,255,0.15) rgba(0,0,0,0.4) rgba(0,0,0,0.5) rgba(255,255,255,0.1);
+        border-radius: 4px;
+        margin: 6px 0 10px 0;
+        padding-bottom: 12px;
+        &.odd {
+            background: rgba(255,255,255,.04);
+        }
+        &:hover {
+            border-color: rgba(255,255,255,0.25) rgba(0,0,0,0.3) rgba(0,0,0,0.4) rgba(255,255,255,0.2);
+        }
+        &.deleteAction {
+            border-color: #cc324b;
+        }
+
+        label {
+            float: left;
+            width: 100px;
+            display: inline-block;
+            margin: 13px 16px 0 0;
+            text-align: right;
+            @media (max-width: $smallWidth) {
+                text-align: left;
+            }
+        }
+        .lang {
+            font-size: 13px;
+        }
+    }
 }
-.tl_metawizard li.odd {
-    background: #414b73;
-}
+
 
 #tl_messages h2,
 #tl_shortcuts h2,
@@ -827,18 +869,14 @@ td.tl_file_list,
 #tl_versions td {
     border-top: 1px solid transparent;
     border-bottom: 1px solid transparent;
-}
-td.tl_file:first-child,
-td.tl_file_list:first-child,
-#tl_versions td:first-child {
-    border-radius: 4px 0 0 4px;
-    border-left: 1px solid transparent;
-}
-td.tl_file:last-child,
-td.tl_file_list:last-child,
-#tl_versions td:last-child {
-    border-radius: 0 4px 4px 0;
-    border-right: 1px solid transparent;
+    &:first-child {
+        border-radius: 4px 0 0 4px;
+        border-left: 1px solid transparent;
+    }
+    &:last-child {
+        border-radius: 0 4px 4px 0;
+        border-right: 1px solid transparent;
+    }
 }
 .tl_header:hover,
 .tl_content:hover,
@@ -854,6 +892,13 @@ li.tl_folder:hover *,
 li.tl_file:hover *,
 li.tl_file_list:hover * {
     border-color: rgba(255,255,255,.1);
+}
+
+.tl_listing_container tr.deleteAction td,
+.tl_listing_container .tl_content.deleteAction,
+.tl_listing_container .tl_folder.deleteAction,
+.tl_listing_container .tl_file.deleteAction {
+    border-color: #cc324b !important;
 }
 
 /* color */
@@ -1343,11 +1388,11 @@ img[src*="expand_.gif"] {
         background: no-repeat 0 0;
         margin-left: 3px;
     }
-    img {
-        margin-left: 3px;
+    #container & img {
+        margin-left: 3px !important;
     }
-    a img {
-        margin-left: 0;
+    #container #main & a img {
+        margin-left: 0 !important;
     }
     .editheader {
         background-image: url("../images/header.png");
@@ -2246,6 +2291,50 @@ body.popup {
 
 
 /*
+ * Drop zone
+ */
+.dz-container {
+    border: 3px dashed rgba(255,255,255,.9) !important;
+    margin: 10px 0 7px 0 !important;
+
+    .dz-message {
+        text-align:center;
+    }
+    .dropzone, .dropzone-previews {
+        .dz-preview {
+            background: rgba(255, 255, 255, .9);
+            border: 0;
+            .dz-details {
+                background: #151515 url("../images/dz-details.png") no-repeat 50% 50%;
+                .dz-filename {
+                    color: rgba(255,255,255,.7);
+                }
+                .dz-size {
+                    color: rgba(0, 0, 0, .9);
+                }
+                img {
+                    @include transition(opacity 0.2s ease);
+                    opacity: 0.5;
+                }
+            }
+            .dz-error-message {
+                background: rgba(204,51,51,.9);
+                border-radius: 4px;
+                color: #fff;
+            }
+
+            &:hover {
+                .dz-details img {
+                    opacity: 1 !important;
+                }
+            }
+        }
+    }
+}
+
+
+
+/*
  * Install page
  */
 .install_page {
@@ -2306,7 +2395,7 @@ body.popup {
 
 
 
-@media (max-width: 991px) {
+@media (max-width: $mediumWidth) {
     #header {
         min-width: 0;
         &.collapsible {
@@ -2341,7 +2430,7 @@ body.popup {
     }
 }
 
-@media (max-width: 767px) {
+@media (max-width: $smallWidth) {
     #tmenu {
         text-align: left;
         clear: left;

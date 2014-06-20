@@ -2,10 +2,17 @@ Carbid changelog
 ===========================
 
 Roadmap
+---------------------------------
 - add missing icons
 
 
-Version 1.0.1 stable (2014-06-00)
+Version 1.0.2 stable (2014-07-01)
+---------------------------------
+- redesign drop zone
+- redesign metadata edit
+
+
+Version 1.0.1 stable (2014-06-11)
 ---------------------------------
 - changed background
 - datepicker redesign
