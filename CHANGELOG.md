@@ -6,7 +6,7 @@ Roadmap
 - add missing icons
 
 
-Version 1.0.2 stable (2014-07-01)
+Version 1.0.2 stable (2014-07-03)
 ---------------------------------
 - redesign drop zone
 - redesign metadata edit
