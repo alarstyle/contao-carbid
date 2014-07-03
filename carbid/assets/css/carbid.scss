@@ -42,6 +42,7 @@ $dpArrowColor:                  #fff;
 
 
 /***   WIDTH   ***/
+$mobileWidth:    640px;
 $smallWidth:   767px;
 $mediumWidth:  991px;
 
@@ -50,6 +51,7 @@ $mediumWidth:  991px;
 /***   MIXINS   ***/
 
 @mixin disableSelecting() {
+    -webkit-tap-highlight-color: rgba(0,0,0,0);
     -webkit-touch-callout: none;
     -webkit-user-select: none;
     -moz-user-select: none;
@@ -73,6 +75,9 @@ $mediumWidth:  991px;
 
 @mixin simpleBtn() {
     @include borderBox;
+    @include disableSelecting;
+    -moz-appearance: none;
+    -webkit-appearance: none;
     color: $btnTextColor !important;
     cursor: pointer;
     background: $btnBgColor !important;
@@ -2023,12 +2028,10 @@ body.popup {
  */
 
 .login_page {
-
     display: table;
     height: 100%;
     width: 100%;
-    min-height: 450px;
-    min-width: 500px;
+    min-height: 400px;
     position: relative;
 
     #header {
@@ -2041,10 +2044,11 @@ body.popup {
         padding-bottom: 100px;
     }
     #main {
-        display: table;
+        @include borderBox;
+        display: block;
         margin: 0 auto;
         padding: 20px 40px;
-        width: 350px;
+        width: 430px;
         float: none;
     }
     #tl_license {
@@ -2057,7 +2061,7 @@ body.popup {
         margin: 0;
         padding: 10px 10px 0 10px;
         p {
-            font-size: 10px;
+            font-size: 9px;
             text-align: center;
             margin-bottom: 5px;
         }
@@ -2066,10 +2070,13 @@ body.popup {
         }
     }
     .tl_login_table {
+        width: 100%;
+        margin: 0 0 6px 0;
         label {
             font-weight: bold;
         }
         td {
+            display: table-cell !important;
             text-align: left !important;
         }
         td:first-child {
@@ -2085,6 +2092,9 @@ body.popup {
             background: url("../images/preview.png") no-repeat 4px 50%;
             color: #fff;
             opacity: 0.8;
+            &:hover {
+                opacity: 1;
+            }
         }
     }
     .tip-wrap {
@@ -2094,6 +2104,7 @@ body.popup {
         height: 35px;
         padding-top: 1px;
         margin-top: -1px;
+        text-align: right;
         .tl_submit,
         .tl_submit:hover {
             padding-left: 30px !important;
@@ -2109,8 +2120,67 @@ body.popup {
     .tl_login_form {
         width: auto;
         margin: 15px auto 20px;
-        .tl_text {
-            width: 180px;
+        .tl_text,
+        .tl_select {
+            width: 180px !important;
+        }
+    }
+    .login_error {
+        background: url('../images/error_red.png') no-repeat 0 4px;
+        padding-left: 23px;
+        label {
+            color: #e64c65;
+        }
+    }
+
+    @media (max-width: $smallWidth) {
+        min-height: 450px;
+    }
+
+    @media (max-width: 500px) {
+        display: block;
+        min-height: 0;
+        height: auto;
+
+        #container {
+            display: block;
+            margin: 0;
+            padding-bottom: 0;
+            height: 100%;
+        }
+        #main {
+            padding-left: 30px;
+            padding-right: 30px;
+            width: 100%;
+            min-height: 100%;
+        }
+        .tl_login_table {
+            margin-bottom: 10px;
+            label {
+                display: block;
+                margin-top: 6px;
+            }
+            td,
+            td:first-child {
+                position: relative;
+                display: block !important;
+                text-align: left !important;
+                width: auto !important;
+            }
+        }
+        .tl_login_form {
+            .tl_text,
+            .tl_select {
+                width: 100% !important;
+            }
+        }
+        #tl_license {
+            position: relative;
+            padding-bottom: 3px;
+            margin-bottom: 10px;
+        }
+        #go_to_frontend {
+            margin-right: 0;
         }
     }
 }

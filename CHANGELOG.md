@@ -10,6 +10,8 @@ Version 1.0.2 stable (2014-07-01)
 ---------------------------------
 - redesign drop zone
 - redesign metadata edit
+- login page fixes
+- small improvements
 
 
 Version 1.0.1 stable (2014-06-11)

@@ -10,8 +10,61 @@
 
 (function(Backend) {
 
+
     /**
-     * Highlight element on mouse over delete icon
+     * Adding custom classes to body tag
+     */
+    function addCustomClasses() {
+        var urlVars = [],
+            strClasses = "";
+        window.location.href.replace(/[?&]+([^=&]+)=([^&]*)/gi, function(m,key,value) {
+            urlVars[key] = value;
+        });
+        if ( urlVars['do'] != undefined ) {
+            strClasses += " module_" + urlVars['do'];
+        }
+        if ( urlVars['table'] != undefined ) {
+            strClasses += " table_" + urlVars['table'];
+        }
+        if ( urlVars['act'] != undefined ) {
+            strClasses += " act_" + urlVars['act'];
+        }
+        if ( window.self !== window.top ) {
+            strClasses += " popup";
+        }
+        if ( document.getElementsByClassName('tl_login_form').length ) {
+            strClasses += " login_page";
+        }
+        if ( window.location.pathname.match(/install\.php/) ) {
+            strClasses += " install_page";
+        }
+        if(('ontouchstart' in window) || window.DocumentTouch && document instanceof DocumentTouch) {
+            strClasses += " touch";
+        }
+        else {
+            strClasses += " no-touch";
+        }
+        document.body.className = document.body.className + strClasses;
+    }
+
+
+    /**
+     * Replacing filer refrush button, because can't be replaced with css
+     */
+    function replaceFilterRefreshBtn() {
+        var reload1 = document.getElementById('filter'),
+            reload2 = document.getElementById('btfilter');
+        if (reload1) {
+            reload1.setAttribute('src','system/modules/carbid/assets/images/blank.gif');
+        }
+        if (reload2) {
+            reload2.setAttribute('src','system/modules/carbid/assets/images/blank.gif');
+        }
+    }
+
+
+    /**
+     * Highlight element on mouse over action icon
      */
     function initElementActonsHighlight() {
         var elements, i;
@@ -25,7 +78,7 @@
                 img.setAttribute('onmouseout', 'Carbid.elementHighlight(this, "deleteAction", true)');
             }
         }
-
+        // listing
         elements = document.querySelectorAll('.tl_listing_container tr, .tl_listing_container .tl_content, .tl_listing_container .tl_folder, .tl_listing_container .tl_file ');
         for (i = 0; i < elements.length; i++) {
             var anchor = elements[i].getElementsByClassName('delete')[0];
@@ -35,70 +88,27 @@
                 anchor.setAttribute('onmouseout', 'Carbid.elementHighlight(this, "deleteAction", true)');
             }
         }
-
     }
 
     window.addEvent('domready', function() {
-
-        function getUrlVars() {
-            var vars = {};
-            window.location.href.replace(/[?&]+([^=&]+)=([^&]*)/gi, function(m,key,value) {
-                vars[key] = value;
-            });
-            return vars;
-        }
-
+        addCustomClasses();
+        replaceFilterRefreshBtn();
         initElementActonsHighlight();
-
-        var reload1 = document.getElementById('filter'),
-            reload2 = document.getElementById('btfilter'),
-            urlVars = getUrlVars(),
-            strClasses = "";
-
-        if (urlVars['do'] != undefined) {
-            strClasses += " module_" + urlVars['do'];
-        }
-        if (urlVars['table'] != undefined) {
-            strClasses += " table_" + urlVars['table'];
-        }
-        if (urlVars['act'] != undefined) {
-            strClasses += " act_" + urlVars['act'];
-        }
-        if ( window.self !== window.top ) {
-            strClasses += " popup";
-        }
-        if ( document.getElementsByClassName('tl_login_form').length ) {
-            strClasses += " login_page";
-        }
-        if ( window.location.pathname.match(/install\.php/) ) {
-            strClasses += " install_page";
-        }
-
-        document.body.className = document.body.className + strClasses;
-
-        // Replacing images
-        if (reload1) {
-            reload1.setAttribute('src','system/modules/carbid/assets/images/blank.gif');
-        }
-        if (reload2) {
-            reload2.setAttribute('src','system/modules/carbid/assets/images/blank.gif');
-        }
-
     });
+
 })(window.Backend);
 
 Carbid = {
 
     /**
      *
-     * @param el
-     * @param className
-     * @param remove
+     * @param {object}  el        The DOM element
+     * @param {string}  className Class name which will be added or removed
+     * @param {boolean} remove    If true - class name will be removed
      */
     elementHighlight: function(el, className, remove) {
         if (!el.elementContainer) {
             el.elementContainer = el.parentNode.parentNode;
-            //if (el.elementContainer.tagName != 'li' && el.elementContainer.tagName != 'tr' && el.elementContainer.tagName != 'LI' && el.elementContainer.tagName != 'TR') return;
         }
         if (!remove) {
             el.elementContainer.className = el.elementContainer.className + ' deleteAction';
