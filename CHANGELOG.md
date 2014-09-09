@@ -6,6 +6,13 @@ Roadmap
 - add missing icons
 
 
+Version 1.0.3 stable (2014-09-00)
+---------------------------------
+- redesign confirmation page
+- fixed design problems with rocksolid-custom-elements extension
+- small improvements
+
+
 Version 1.0.2 stable (2014-07-03)
 ---------------------------------
 - redesign drop zone

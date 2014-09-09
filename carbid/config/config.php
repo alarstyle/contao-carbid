@@ -34,5 +34,6 @@ if (TL_MODE == 'BE')
     /**
      * Hooks
      */
-    //$GLOBALS['TL_HOOKS']['initializeSystem'][] = array('Carbid', 'initializeSystem');
+    $GLOBALS['TL_HOOKS']['initializeSystem'][] = array('Carbid\Carbid', 'initializeSystem');
+    $GLOBALS['TL_HOOKS']['parseBackendTemplate'][] = array('Carbid\Carbid', 'parseBackendTemplate');
 }

@@ -23,9 +23,10 @@ ClassLoader::addNamespaces(array('Carbid'));
 ClassLoader::addClasses(array
 (
 	// Classes
-	'Carbid\DcaHelper'           => 'system/modules/carbid/classes/DcaHelper.php',
-	'Carbid\Helper'              => 'system/modules/carbid/classes/Helper.php',
+	'Carbid\Carbid'                 => 'system/modules/carbid/classes/Carbid.php',
+	'Carbid\DcaHelper'              => 'system/modules/carbid/classes/DcaHelper.php',
+	'Carbid\Helper'                 => 'system/modules/carbid/classes/Helper.php',
 
 	// Widgets
-	'Carbid\Widget\CheckBoxTree' => 'system/modules/carbid/widgets/CheckBoxTree.php',
+	'Carbid\Widget\CheckBoxTree'    => 'system/modules/carbid/widgets/CheckBoxTree.php',
 ));

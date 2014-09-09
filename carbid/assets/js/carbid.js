@@ -15,28 +15,9 @@
      * Adding custom classes to body tag
      */
     function addCustomClasses() {
-        var urlVars = [],
-            strClasses = "";
-        window.location.href.replace(/[?&]+([^=&]+)=([^&]*)/gi, function(m,key,value) {
-            urlVars[key] = value;
-        });
-        if ( urlVars['do'] != undefined ) {
-            strClasses += " module_" + urlVars['do'];
-        }
-        if ( urlVars['table'] != undefined ) {
-            strClasses += " table_" + urlVars['table'];
-        }
-        if ( urlVars['act'] != undefined ) {
-            strClasses += " act_" + urlVars['act'];
-        }
+        var strClasses = "";
         if ( window.self !== window.top ) {
             strClasses += " popup";
-        }
-        if ( document.getElementsByClassName('tl_login_form').length ) {
-            strClasses += " login_page";
-        }
-        if ( window.location.pathname.match(/install\.php/) ) {
-            strClasses += " install_page";
         }
         if(('ontouchstart' in window) || window.DocumentTouch && document instanceof DocumentTouch) {
             strClasses += " touch";
@@ -45,21 +26,6 @@
             strClasses += " no-touch";
         }
         document.body.className = document.body.className + strClasses;
-    }
-
-
-    /**
-     * Replacing filer refrush button, because can't be replaced with css
-     */
-    function replaceFilterRefreshBtn() {
-        var reload1 = document.getElementById('filter'),
-            reload2 = document.getElementById('btfilter');
-        if (reload1) {
-            reload1.setAttribute('src','system/modules/carbid/assets/images/blank.gif');
-        }
-        if (reload2) {
-            reload2.setAttribute('src','system/modules/carbid/assets/images/blank.gif');
-        }
     }
 
 
@@ -92,7 +58,6 @@
 
     window.addEvent('domready', function() {
         addCustomClasses();
-        replaceFilterRefreshBtn();
         initElementActonsHighlight();
     });
 
