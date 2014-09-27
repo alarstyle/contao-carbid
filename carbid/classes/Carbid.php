@@ -28,6 +28,8 @@ class Carbid
 
     public function parseBackendTemplate($strContent, $strTemplate)
     {
+        /*$user = \BackendUser::getInstance();*/
+
         // Add classes
         $strClasses = ' template-' . $strTemplate;
         if (\Input::get('do')) {
@@ -48,7 +50,7 @@ class Carbid
         $strContent = preg_replace('/<input(.*?)type="image"(.*?)>/', '<button $1 $2 $3></button>', $strContent);
 
         // Remove collapsible
-        $strContent = str_replace(array('collapsible_area', 'collapsible'), '', $strContent);
+        //$strContent = str_replace(array('collapsible_area', 'collapsible'), '', $strContent);
 
         return $strContent;
     }

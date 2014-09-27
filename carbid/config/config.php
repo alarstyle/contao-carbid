@@ -17,7 +17,8 @@ require_once TL_ROOT . '/system/modules/carbid/helper/functions.php';
 /**
  * Backend form fields
  */
-$GLOBALS['BE_FFL']['checkboxTree']        = 'Carbid\Widget\CheckBoxTree';
+$GLOBALS['BE_FFL']['checkboxTree']          = 'Carbid\Widget\CheckBoxTree';
+$GLOBALS['BE_FFL']['hidden']                = 'Carbid\Widget\Hidden';
 
 
 /**
@@ -37,3 +38,15 @@ if (TL_MODE == 'BE')
     $GLOBALS['TL_HOOKS']['initializeSystem'][] = array('Carbid\Carbid', 'initializeSystem');
     $GLOBALS['TL_HOOKS']['parseBackendTemplate'][] = array('Carbid\Carbid', 'parseBackendTemplate');
 }
+
+
+// Pattern hooks
+$GLOBALS['TL_HOOKS']['initializeSystem'][] = array('Carbid\Pattern', 'initializeSystem');
+$GLOBALS['TL_HOOKS']['loadLanguageFile'][] = array('Carbid\Pattern', 'loadLanguageFileHook');
+
+
+// Pattern categories
+$GLOBALS['TL_CTE']['patterns'] = array();
+$GLOBALS['FE_MOD']['patterns'] = array();
+
+

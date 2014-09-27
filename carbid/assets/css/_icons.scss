@@ -260,7 +260,7 @@ img[src*="pasteinto.gif"] {
 .tl_content_right,
 .tl_right,
 .tl_right_nowrap {
-    font-size: 0;
+    font-size: 1px;
     a {
         width: 25px;
         height: 25px;
@@ -274,9 +274,6 @@ img[src*="pasteinto.gif"] {
     }
     #container #main & a img {
         margin-left: 0 !important;
-    }
-    .copyChilds {
-        background-image: url("../images/copychilds.png");
     }
     .css {
         background-image: url("../images/css.png");
@@ -307,7 +304,6 @@ img[src*="pasteinto.gif"] {
 .tree_view img[src*="filemounts.gif"],
 .tree_view img[src*="iconPDF.gif"],
 .tree_view img[src*="iconCSS.gif"],
-img[src*="new.gif"],
 img[src*="su.gif"],
 img[src*="mootools/datepicker"],
 img[src*="expand.gif"],
@@ -571,20 +567,20 @@ a.navigation {
     line-height: 20px;
     padding-left: 30px;
 }
-.module_member .list_icon_new {
+.do-member .list_icon_new {
     background: url("../images/member.png") no-repeat 0 0 !important;
 }
-.module_mgroup .list_icon {
+.do-mgroup .list_icon {
     background: url("../images/mgroup.png") no-repeat 0 0 !important;
 }
-.module_user .list_icon_new {
+.do-user .list_icon_new {
     background: url("../images/user.png") no-repeat 0 0 !important;
 }
-.module_group .list_icon {
+.do-group .list_icon {
     background: url("../images/group.png") no-repeat 0 0 !important;
 }
 
-.module_comments .cte_type.published {
+.do-comments .cte_type.published {
     background: url("../images/approved.png") no-repeat 0 50%;
     &.replied {
         background-image: url("../images/replied.png");

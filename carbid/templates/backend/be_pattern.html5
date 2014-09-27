@@ -1,0 +1,9 @@
+<?php
+
+if ($this->variables)
+{
+    foreach ($this->variables as $varName=>$varValue)
+    {
+        echo '<strong>' . $varName , ':</strong> ' .  $varValue . '<br>';
+    }
+}
