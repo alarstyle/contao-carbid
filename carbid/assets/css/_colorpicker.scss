@@ -1,0 +1,13 @@
+.moor-box {
+    @include box-shadow(0 0 6px rgba(0,0,0,1));
+    border: 0;
+    height: 320px;
+    .moor-okButton {
+        @extend .simpleBtn;
+        margin-top: 277px !important;
+        margin-left: 8px;
+    }
+    label, input {
+        color: #000;
+    }
+}

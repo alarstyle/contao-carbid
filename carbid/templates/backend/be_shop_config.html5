@@ -1,0 +1,19 @@
+<div id="tl_buttons">
+    <a href="#" class="header_back" title="aaa">aaa</a>
+</div>
+
+<div>
+    <?php foreach ($this->modules as $strGroupKey => $arrGroup): ?>
+        <fieldset id="pal_<?php echo $strGroupKey; ?>" class="tl_box">
+            <legend onclick=""><?php echo $arrGroup['label']; ?></legend>
+            <?php foreach ($arrGroup as $strModule => $arrModule): ?>
+                <div class="item">
+                    <a href="<?php echo $arrModule['href']; ?>" title="<?php echo $arrModule['description']; ?>"<?php if ($arrModule['class']): ?> class="<?php echo $arrModule['class']; ?>"<?php endif; ?>>
+                        <img src="<?php echo $arrModule['icon']; ?>" alt="">
+                        <span><?php echo $arrModule['label']; ?></span>
+                    </a>
+                </div>
+            <?php endforeach; ?>
+        </fieldset>
+    <?php endforeach; ?>
+</div>

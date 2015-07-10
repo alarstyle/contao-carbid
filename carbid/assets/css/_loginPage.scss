@@ -1,0 +1,153 @@
+.template-be_login {
+
+    body {
+        display: table;
+        height: 100%;
+        width: 100%;
+        min-height: 400px;
+        position: relative;
+        margin: 0 !important;
+    }
+    #header {
+        display: none;
+    }
+    #container {
+        display: table-cell;
+        vertical-align: middle;
+        width: 100%;
+        padding-bottom: 100px;
+        padding-left: 0;
+        padding-right: 0;
+    }
+    #main {
+        @include borderBox;
+        position: static;
+        display: block;
+        margin: 0 auto;
+        padding: 0;
+        width: 300px;
+        overflow: visible;
+    }
+    #tl_license {
+        background: rgba(0, 0, 0, .3);
+        position: absolute;
+        bottom: 0;
+        right: 0;
+        left: 0;
+        text-align: center;
+        margin: 0;
+        padding: 10px 10px 5px 10px;
+        p {
+            font-size: 9px;
+            text-align: center;
+            margin-bottom: 0;
+        }
+        p, a {
+            color: #aaa;
+            text-shadow: 1px 1px 1px #222;
+        }
+    }
+    .tl_login_table {
+        width: 100%;
+        margin: 0 auto;
+        label {
+            font-weight: bold;
+        }
+        td {
+            position: relative;
+            display: block !important;
+            text-align: left !important;
+            width: auto !important;
+        }
+        td:first-child {
+            display: none !important ;
+        }
+    }
+    #go_to_frontend {
+        margin: 0;
+        text-align: center;
+        a {
+            display: inline-block;
+            padding: 2px 0 3px 28px;
+            background: url("../images/preview.png") no-repeat 4px 50%;
+            color: #fff;
+            opacity: 0.8;
+            &:hover {
+                opacity: 1;
+            }
+        }
+    }
+    .tip-wrap {
+        display: none !important;
+    }
+    .tl_login_submit_container {
+        height: 35px;
+        margin: 5px auto 0 auto;
+        .tl_submit,
+        .tl_submit:hover {
+            width: 100%;
+            height: 34px;
+        }
+    }
+    #container h2 {
+        background: none;
+        color: #fff;
+        padding: 0;
+        margin: 0;
+        text-align: center;
+    }
+    .tl_login_form {
+        width: auto;
+        margin: 15px auto 20px;
+        .tl_text,
+        .tl_select {
+            width: 100% !important;
+            margin-left: 0;
+        }
+    }
+    .login_error {
+        background: url('../images/error_red.png') no-repeat 0 4px;
+        padding-left: 23px;
+        label {
+            color: #e64c65;
+        }
+    }
+
+    .tl_login_table tr:last-child{
+        display: none;
+    }
+    &.login-language-show .tl_login_table tr:last-child{
+        display: table-row;
+    }
+
+    @media (max-width: $smallWidth) {
+        min-height: 450px;
+    }
+
+    @media (max-width: 500px) {
+        display: block;
+        min-height: 0;
+        height: auto;
+
+        #container {
+            display: block;
+            margin: 0;
+            padding-bottom: 0;
+            height: 100%;
+        }
+        #main {
+            padding-left: 30px;
+            padding-right: 30px;
+            width: 100%;
+            min-height: 100%;
+        }
+        #tl_license {
+            position: relative;
+            padding-bottom: 3px;
+            margin-bottom: 10px;
+        }
+        #go_to_frontend {
+            margin-right: 0;
+        }
+    }
+}

@@ -1,7 +1,1 @@
-<?php $this->extend('block_searchable'); ?>
-
-<?php $this->block('content'); ?>
-
-    <?php echo $this->pattern; ?>
-
-<?php $this->endblock(); ?>
+<?php echo $this->pattern; ?>

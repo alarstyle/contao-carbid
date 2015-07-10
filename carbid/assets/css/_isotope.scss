@@ -1,0 +1,28 @@
+.be_iso_introduction .left {
+    background: none !important;
+}
+.be_iso_overview {
+    .item {
+        display: inline-block;
+        vertical-align: top !important;
+        a {
+            float: none !important;
+        }
+    }
+}
+.iso_operations {
+    white-space: nowrap !important;
+}
+#ctrl_attributes, #ctrl_variant_attributes, #ctrl_address_fields {
+    tr:hover td {
+        background-color: rgba(255,255,255,.1) !important;
+    }
+}
+
+a.variants {
+    background: $iconList 50% 50% !important;
+    background-size: contain !important;
+    img {
+        display: none;
+    }
+}

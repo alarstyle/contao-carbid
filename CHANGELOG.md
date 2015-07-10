@@ -6,9 +6,9 @@ Roadmap
 - add missing icons
 
 
-Version 1.0.3 stable (2014-09-00)
+Version 2.0.0 alpha1 (2015-03-00)
 ---------------------------------
-- redesign confirmation page
+- redesign
 - fixed design problems with rocksolid-custom-elements extension
 - small improvements
 

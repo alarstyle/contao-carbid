@@ -1,15 +1,13 @@
 <?php
 
 /**
- * Pattern for Contao Open Source CMS
+ * Carbid for Contao Open Source CMS
  *
- * Copyright (C) 2014 Alexander Stulnikov
+ * Copyright (C) 2014-2015 Alexander Stulnikov
  *
- * @package    Pattern
- * @link       https://github.com/alarstyle/contao-pattern
+ * @link       https://github.com/alarstyle/contao-carbid
  * @license    http://opensource.org/licenses/MIT
  */
-
 
 namespace Carbid;
 
@@ -46,6 +44,62 @@ class Pattern extends \Controller
     protected static $fieldPrefix = 'ptr_field_';
 
 
+    private static $_patternName;
+
+    private static $_patternDCAs;
+
+    private static $_patternFileds;
+
+
+    private function patternName()
+    {
+        if (isset(static::$_patternName))
+        {
+            return static::$_patternName;
+        }
+
+        $record = \Database::getInstance()
+            ->prepare('SELECT type FROM ' . static::$table . ' WHERE id=?')
+            ->execute(\Input::get('id'));
+
+        if ($record->next()) {
+            static::$_patternName = strpos($record->type, 'ptr_') !== 0 ? null : $record->type;
+        }
+        else {
+            static::$_patternName = null;
+        }
+
+        return static::$_patternName;
+    }
+
+
+    private function patternDCA($patternName)
+    {
+        if (isset(static::$_patternDCAs[$patternName]))
+        {
+            return static::$_patternDCAs[$patternName];
+        }
+
+        static::$_patternDCAs[$patternName] = $this->parsedDCA($patternName) ?: null;
+
+        return static::$_patternDCAs[$patternName];
+    }
+
+
+    private function patternFields($patternName)
+    {
+        if (isset(static::$_patternFileds))
+        {
+            return static::$_patternFileds;
+        }
+
+        $dca = $this->patternDCA($patternName);
+        static::$_patternFileds = $dca['fields'] ?: array();
+
+        return static::$_patternFileds;
+    }
+
+
 
     /**
      * @return bool
@@ -70,10 +124,17 @@ class Pattern extends \Controller
         $data = deserialize($data, true);
 
         $newArr = array();
-        foreach($data as $fieldName=>$fieldValue)
+        foreach($data as $dataFieldName=>$fieldValue)
         {
-            $fieldName = str_replace(static::$fieldPrefix, '', $fieldName);
+            $fieldName = str_replace(static::$fieldPrefix, '', $dataFieldName);
             $type = static::$templatesData[$strTemplate]['fields'][$fieldName]['inputType'];
+
+            if (static::$templatesData[$strTemplate]['fields'][$fieldName]['translatable'] && $GLOBALS['TRANSLATE_TO_LANGUAGE'])
+            {
+                $translatedFieldName = $dataFieldName . '_lang_' . $GLOBALS['TRANSLATE_TO_LANGUAGE'];
+                $fieldValue = $data[$translatedFieldName];
+            }
+
             switch($type)
             {
                 case 'image':
@@ -100,7 +161,7 @@ class Pattern extends \Controller
      */
     public function getPatternTemplates()
     {
-        $arrTemplates = \Pattern\PatternTemplate::getTemplateGroup('ptr_');
+        $arrTemplates = \Carbid\PatternTemplate::getTemplateGroup('ptr_');
         return array_values($arrTemplates);
     }
 
@@ -109,9 +170,8 @@ class Pattern extends \Controller
      * Generate DCA for variables
      * Called on initializeSystem hook
      */
-    public function initializeSystem()
+    public function initializeSystemHook()
     {
-
         // Load pattern data files
         foreach( glob(TL_ROOT . '/templates/ptr_*.php') as $strFile )
         {
@@ -132,10 +192,9 @@ class Pattern extends \Controller
             }
         }
 
-        if (TL_MODE == 'FE'){
+        if (TL_MODE === 'FE' || !\Input::get('id')) {
             return;
         }
-
 
         static::$table = \Input::get('table');
 
@@ -149,53 +208,57 @@ class Pattern extends \Controller
         $this->import('BackendUser', 'User');
         $this->User->authenticate();
 
-        $objElement = $this->isContent() ? \ContentModel::findByPk(\Input::get('id')) : \ModuleModel::findByPk(\Input::get('id'));
+        $patternName = $this->patternName();
+        if (!$patternName) return;
 
-        if (empty($objElement) || strpos($objElement->type, 'ptr_') !== 0 )
+        $patternFields = $this->patternFields($patternName);
+        if (!$patternFields) return;
+
+        \Controller::loadDataContainer(static::$table);
+    }
+
+
+    public function loadDataContainerHook($strTable)
+    {
+        if (($strTable !== 'tl_module' && $strTable !== 'tl_content') || !static::$isEnabled || TL_MODE !== 'BE' || !\Input::get('id'))
         {
             return;
         }
+        $patternName = $this->patternName();
+        $patternFields = $this->patternFields($patternName);
+        $strPalettePart = '';
 
-        $arrData = $this->parsedDCA($objElement->type);
-
-        static::$arrVariables = $arrData['fields'] ?: array();
-
-        \Controller::loadDataContainer(static::$table);
-
-        $strFields = '';
-
-        foreach (static::$arrVariables as $key=>$objVar)
+        foreach ($patternFields as $fieldName=>$objVar)
         {
             if ($objVar['inputType'] == 'group')
             {
-                $strFields .= ';{' . $key . '}';
-                $GLOBALS['TL_LANG'][static::$table][$key] = $objVar['label'][0];
+                $GLOBALS['TL_LANG'][static::$table][$fieldName] = $objVar['label'][0];
+                $strPalettePart .= ';{' . $fieldName . '}';
             }
             else
             {
-                $strFields .= ',' . $key;
-                $GLOBALS['TL_DCA'][static::$table]['fields'][$key] = $objVar;
-                $GLOBALS['TL_DCA'][static::$table]['fields'][$key]['save_callback'][] = array('Carbid\Pattern', 'preventFieldSaving');
-                $GLOBALS['TL_DCA'][static::$table]['fields'][$key]['load_callback'][] = array('Carbid\Pattern', 'setVariable');
+                $GLOBALS['TL_DCA'][static::$table]['fields'][$fieldName] = $objVar;
+                $GLOBALS['TL_DCA'][static::$table]['fields'][$fieldName]['save_callback'][] = array('Carbid\Pattern', 'preventFieldSaving');
+                $GLOBALS['TL_DCA'][static::$table]['fields'][$fieldName]['load_callback'][] = array('Carbid\Pattern', 'setVariable');
+                $strPalettePart .= ',' . $fieldName;
             }
         }
 
-        if (!empty($strFields))
+        if (!empty($strPalettePart))
         {
-            $strFields = ';{' . $objElement->type . '_legend}' . $strFields;
+            $strPalettePart = ';{' . $patternName . '_legend}' . $strPalettePart . ',pattern_data';
         }
 
         if ($this->isContent())
         {
-            $strPalette = '{type_legend},type' . $strFields . ';{protected_legend:hide},protected;{expert_legend:hide},guests,cssID,space;{invisible_legend:hide},invisible,start,stop';
+            $strPalette = '{type_legend},type' . $strPalettePart . ';{protected_legend:hide},protected;{expert_legend:hide},guests,cssID,space;{invisible_legend:hide},invisible,start,stop';
         }
         else
         {
-            $strPalette = '{title_legend},name,type' . $strFields . ';{protected_legend:hide},protected;{expert_legend:hide},guests,cssID,space';
+            $strPalette = '{title_legend},name,type' . $strPalettePart . ';{protected_legend:hide},protected;{expert_legend:hide},guests,cssID,space';
         }
 
-        $GLOBALS['TL_DCA'][static::$table]['palettes'][$objElement->type] = $strPalette . ',pattern_data';
-
+        $GLOBALS['TL_DCA'][static::$table]['palettes'][$patternName] = $strPalette;
     }
 
 
@@ -242,6 +305,8 @@ class Pattern extends \Controller
         {
             $arrEval = array();
 
+            $arrVar['inputTypeOriginal'] = $arrVar['inputType'];
+
             switch($arrVar['inputType'])
             {
                 case 'wysiwyg':
@@ -277,7 +342,7 @@ class Pattern extends \Controller
                     $arrVar['inputType'] = 'pageTree';
                     $arrVar['foreignKey'] = 'tl_page.title';
                     $arrEval = array('fieldType'=>'radio');
-                    $arrVar['relation'] = array('type'=>'hasOne', 'load'=>'eager');
+                    $arrVar['relation'] = array('type'=>'hasOne', 'load'=>'lazy');
                     break;
 
                 case 'date':
@@ -299,6 +364,10 @@ class Pattern extends \Controller
                     $arrVar['inputType'] = 'text';
                     $arrEval = array('maxlength'=>6, 'colorpicker'=>true, 'isHexColor'=>true, 'decodeEntities'=>true, 'tl_class'=>'wizard');
                     break;
+            }
+
+            if ($arrEval['tl_class'] && $arrVar['eval']['tl_class']) {
+                $arrVar['eval']['tl_class'] .= ' ' . $arrEval['tl_class'];
             }
 
             $arrVar['eval'] = array_merge($arrEval, $arrVar['eval'] ?: array());
@@ -457,7 +526,8 @@ class Pattern extends \Controller
                     break;
 
                 default:
-                    continue 2;
+                    $strDbField = $objVariable['inputType'];
+                    break;
             }
             $data[$strVarName] = $newValue;
         }
@@ -474,82 +544,65 @@ class Pattern extends \Controller
     {
         $data = array();
 
-        foreach (static::$templatesData[$dc->activeRecord->type]['fields'] as $strVarName=>$objVariable)
+        foreach ($GLOBALS['TL_DCA'][static::$table]['fields'] as $fieldName=>$fieldDCA)
         {
-            $strVarName = 'ptr_field_' . $strVarName;
-            $newValue = \Input::post($strVarName);
+            // Continue if not pattern field
+            if (strpos($fieldName, 'ptr_field_') !== 0)
+            {
+                continue;
+            }
 
-            switch ($objVariable['inputType'])
+            $newFieldValue = \Input::post($fieldName);
+
+            switch ($fieldDCA['inputTypeOriginal'])
             {
                 case 'text':
                 case 'textarea':
-                    $strDbField = 'textarea';
-                    if ($objVariable['allowHtml'])
-                    {
-                        $newValue = \Input::stripTags($_POST[$newValue], \Config::get('allowedTags'));
-                    }
+                    //if ($objVariable['allowHtml'])
+                    //{
+                        //$newFieldValue = \Input::stripTags($_POST[$fieldName], \Config::get('allowedTags'));
+                    //}
                     break;
 
                 case 'wysiwyg':
                 case 'html':
-                    $strDbField = 'html';
-                    $newValue = \Input::stripTags($_POST[$newValue], \Config::get('allowedTags'));
-                    break;
-
-                case 'checkbox':
-                    $strDbField = 'checkbox';
+                    $newFieldValue = \Input::stripTags($_POST[$fieldName], \Config::get('allowedTags'));
                     break;
 
                 case 'image':
                 case 'file':
-                    $strDbField = 'file';
-                    $newValue = \String::uuidToBin($newValue);
+                    $newFieldValue = \String::uuidToBin($newFieldValue);
                     break;
 
                 case 'folder':
-                    $strDbField = 'folder';
-                    $newValue = \String::uuidToBin($newValue);
-                    break;
-
-                case 'page':
-                    $strDbField = 'page';
+                    $newFieldValue = \String::uuidToBin($newFieldValue);
                     break;
 
                 case 'date':
-                    $strDbField = 'date';
-                    if (!empty($newValue))
+                    if (!empty($newFieldValue))
                     {
-                        $objDate = new \Date($newValue, \Config::get('dateFormat'));
-                        $newValue = $objDate->tstamp;
+                        $objDate = new \Date($newFieldValue, \Config::get('dateFormat'));
+                        $newFieldValue = $objDate->tstamp;
                     }
                     break;
 
                 case 'time':
-                    $strDbField = 'time';
-                    if (!empty($newValue))
+                    if (!empty($newFieldValue))
                     {
-                        $objDate = new \Date($newValue, \Config::get('timeFormat'));
-                        $newValue = $objDate->tstamp;
+                        $objDate = new \Date($newFieldValue, \Config::get('timeFormat'));
+                        $newFieldValue = $objDate->tstamp;
                     }
                     break;
 
                 case 'datetime':
-                    $strDbField = 'datetime';
-                    if (!empty($newValue))
+                    if (!empty($newFieldValue))
                     {
-                        $objDate = new \Date($newValue, \Config::get('datimFormat'));
-                        $newValue = $objDate->tstamp;
+                        $objDate = new \Date($newFieldValue, \Config::get('datimFormat'));
+                        $newFieldValue = $objDate->tstamp;
                     }
                     break;
-
-                case 'color':
-                    $strDbField = 'color';
-                    break;
-
-                default:
-                    continue 2;
             }
-            $data[$strVarName] = $newValue;
+            $data[$fieldName] = $newFieldValue;
         }
 
         return serialize($data);

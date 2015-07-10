@@ -1,0 +1,45 @@
+$debugBarHeight: 30px;
+
+#contao-debug {
+    &>* {
+        @include borderBox;
+        width: 100% !important;
+        left: 0;
+    }
+    &>p {
+        border-top: 0 !important;
+        height: $debugBarHeight;
+        padding: 8px 10px !important;
+    }
+    pre {
+        background: none;
+        border: 0;
+    }
+    #debug-tog {
+        height: 25px !important;
+        width: 25px;
+        padding: 0;
+        right: 7px !important;
+        top: 0 !important;
+    }
+    &.closed {
+        p {
+            bottom: 0 !important;
+        }
+    }
+}
+
+.debug-enabled {
+    .tl_formbody_submit {
+        bottom: $debugBarHeight;
+    }
+    #container {
+        padding-bottom: $debugBarHeight !important;
+    }
+    #left {
+        bottom: $debugBarHeight !important;
+    }
+    #main {
+        bottom: $debugBarHeight !important;
+    }
+}

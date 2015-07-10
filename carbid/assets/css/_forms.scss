@@ -1,0 +1,607 @@
+.tl_text,
+.tl_text_2,
+.tl_text_3,
+.tl_text_4,
+.tl_textarea,
+.tl_text_unit,
+.tl_text_trbl,
+.tl_text_interval,
+.tl_select,
+.tl_mselect,
+.tl_select_column,
+.tl_select_unit,
+.tl_select_interval {
+    @include borderBox;
+    -webkit-appearance: none;
+    background: $inputBgColor;
+    border: 1px solid $inputBorderColor;
+    border-radius: 4px;
+    color: $inputTextColor;
+    padding: 6px 8px;
+    height: 34px;
+    vertical-align: middle;
+    &:focus,
+    &.focused {
+        background: $inputBgColor;
+        border-color: $inputFocusBorderColor;
+        outline: none;
+    }
+    &:disabled,
+    &.disabled  {
+        background: $inputBgColor;
+        border: 1px solid $inputBorderColor;
+        color: $inputTextColor;
+        opacity: .5;
+    }
+    &.active {
+        background: $inputBgColor;
+    }
+}
+.chzn-container {
+    border: 1px solid $inputBorderColor !important;
+    &.chzn-container-active {
+        background: $inputBgColor;
+        border-color: $inputFocusBorderColor !important;
+    }
+    .chzn-choices {
+        background: $inputBgColor;
+        border-color: $inputFocusBorderColor !important;
+        outline: none;
+    }
+    .firefox & {
+        top: auto;
+    }
+}
+.chzn-container-multi {
+    height: auto;
+    min-height: 34px;
+    .chzn-choices {
+        background: none;
+        border: 0;
+        padding-bottom: 4px;
+        .search-choice {
+            background: #134d5c;
+            border: 0;
+            height: 22px;
+            line-height: 22px;
+            padding: 0 15px 0 6px;
+            margin-top: 3px;
+            .search-choice-close {
+                background: url("../images/chosen.png") no-repeat 50% 50% !important;
+                position: absolute !important;
+                right: 3px;
+                top: 3px;
+                width: 16px;
+                height: 16px;
+            }
+        }
+    }
+}
+.chzn-container-active .chzn-choices .search-field input {
+    color: #fff !important;
+}
+.tl_textarea {
+    width: 100%;
+    min-height: 100px;
+    resize: vertical;
+}
+.tl_text,
+.tl_text_2,
+.tl_text_3,
+.tl_text_4,
+.tl_textarea,
+.tl_text_unit,
+.tl_select,
+.tl_mselect,
+.tl_select_column,
+.tl_select_unit,
+.tl_select_interval {
+    &,
+    .firefox & {
+        margin: 4px 0 2px -2px;
+    }
+}
+.tl_box,
+.tl_tbox {
+    .tl_text,
+    .tl_select,
+    .tl_mselect {
+        width: 50%;
+        width: -webkit-calc(50% - 10px);
+        width: -moz-calc(50% - 10px);
+        width: calc(50% - 10px);
+    }
+}
+.tl_box .wizard,
+.tl_tbox .wizard {
+    .tl_text,
+    .tl_select,
+    .tl_mselect {
+        width: -webkit-calc(50% - 50px);
+        width: -moz-calc(50% - 50px);
+        width: calc(50% - 50px);
+    }
+}
+.long {
+    @include borderBox;
+    width: auto;
+    .tl_text,
+    .tl_select,
+    .tl_mselect {
+        width: 100%;
+    }
+}
+.tl_text_unit {
+    margin-right: 3px;
+    width: 243px;
+}
+.tl_text_4 {
+    margin-right: 3px;
+    width: 73px;
+}
+.tl_text_2 {
+    margin-right: 3px;
+    width: 157px;
+}
+.wizard .tl_text {
+    width: 283px;
+}
+.wizard .tl_text_2 {
+    width: 138px;
+}
+.tl_text_trbl {
+    margin-right: 1px;
+    width: 56px;
+}
+.tl_text_trbl + .tl_select_unit,
+.tl_text_trbl + .tl_select_unit + .tl_select_unit {
+    margin-left: 0;
+    width: 62px;
+}
+.tl_text_interval, .tl_select_interval {
+    width: 154px;
+}
+.tl_select,
+.tl_mselect,
+.tl_select_column,
+.tl_select_unit,
+.tl_select_interval {
+    color: #fff;
+    cursor: pointer;
+    * {
+        color: #fff;
+    }
+    optgroup {
+        background: $inputBgColor;
+    }
+    span {
+        @include borderBox;
+        padding: 0 0 0 3px;
+        margin-right: 20px;
+        display: block;
+        text-overflow: ellipsis;
+        overflow: hidden;
+    }
+    a {
+        background: none !important;
+        -webkit-box-shadow: none !important;
+        -moz-box-shadow:    none !important;
+        box-shadow:         none !important;
+        position: static !important;
+    }
+    b, a div {
+        background: none !important;
+        border: 0 !important;
+        border-radius: 0 !important;
+        width: 0 !important;
+        height: 0 !important;
+        top: 50% !important;
+        right: 10px !important;
+        margin-top: -3px !important;
+        border-top: 5px solid #fff !important;
+        border-left: 5px solid transparent !important;
+        border-right: 5px solid transparent !important;
+    }
+    b i, a div b {
+        display: none !important;
+    }
+}
+
+.styled_select {
+    position: absolute !important;
+    &:focus,
+    &.focused {
+        outline: none !important;
+    }
+    span {
+        padding-top: 0;
+        padding-left: 8px;
+        line-height: 32px;
+    }
+}
+
+
+.chzn-container {
+    vertical-align: middle;
+    &.chzn-container-single .chzn-single {
+        border: 0;
+        height: 100%;
+        padding: 0;
+        &>span {
+            height: 100%;
+            line-height: 32px;
+            margin-right: 30px;
+            padding-left: 8px;
+        }
+    }
+    .chzn-drop {
+        background: $inputBgColor;
+        border: 1px solid $inputFocusBorderColor !important;
+        border-top: 0 !important;
+        border-radius: 0 0 4px 4px !important;
+        margin: -4px 0 0 -1px;
+        padding-top: 1px;
+        -moz-box-sizing:    content-box !important;
+        -webkit-box-sizing: content-box !important;
+        box-sizing:         content-box !important;
+    }
+}
+.chzn-container-single .chzn-search input {
+    background: rgba(0,0,0,.3) url("../images/search.png") no-repeat 99% 50%;
+    border: 1px solid #090909;
+    border-radius: 4px;
+    padding-left: 7px;
+    padding-right: 27px;
+}
+.chzn-container .chzn-results .no-results {
+    background: none;
+}
+
+.formbody .arrow {
+    background: url("../images/arrow.png") no-repeat 0 0;
+    display: inline-block;
+    vertical-align: middle;
+    width: 20px;
+    height: 20px;
+    font-size: 1px;
+    text-indent: -99999px;
+    margin: -5px 3px 0 3px;
+}
+
+.clr {
+    display: block;
+    width: auto;
+}
+.w50 {
+    @include borderBox;
+    /*min-height: 84px;*/ /* if one of inputs doesn't have help tip */
+    height: auto;
+    float: left; /* can't remove, because of .clr class */
+    display: block;
+    width: 50%;
+    /*width: -webkit-calc(50% - 20px);
+    width: -moz-calc(50% - 20px);
+    width: calc(50% - 20px);*/
+    margin-left: -1px;
+    padding-left: 1px;
+    padding-right: 20px;
+    position: relative;
+    .tl_text,
+    .tl_textarea,
+    .tl_select,
+    .tl_mselect {
+        width: 100%
+    }
+    .tl_textarea {
+        max-width: 100%;
+        min-width: 100%;
+    }
+    .styled_select {
+        width: auto;
+        left: 0;
+        right: 20px;
+        &.tl_select_interval, &.tl_select_unit {
+            left: auto;
+            right: auto;
+        }
+        &.tl_select_unit {
+            width: 60px;
+        }
+    }
+    &+div:not(.w50) {
+        clear: both;
+    }
+    &.wizard {
+        .tl_text,
+        .tl_select,
+        .tl_mselect {
+            width: -webkit-calc(100% - 30px);
+            width: -moz-calc(100% - 30px);
+            width: calc(100% - 30px);
+        }
+    }
+}
+.float-right {
+    float: right;
+}
+.cbx {
+    @include borderBox;
+    height: 35px;
+    &.m12 {
+        margin: 0 !important;
+        padding-top: 21px;
+        height: 107px;
+    }
+}
+.tl_help {
+    @include borderBox;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    margin: 0 0 13px 0 !important;
+}
+fieldset.tl_tbox,
+fieldset.tl_box {
+    // FIELDSET FIX
+    display: table-cell;
+    min-width: 0;
+}
+.ie fieldset.tl_tbox,
+.ie fieldset.tl_box {
+    display: block;
+}
+fieldset.tl_tbox,
+fieldset.tl_box,
+.tl_tbox,
+.tl_box {
+    border: 3px solid #5a7d86;
+    border-radius: 4px;
+    padding: 16px 0 0 20px !important;
+    margin: 0 0 25px 0 !important;
+    position: relative;
+    &>legend {
+        @include disableSelecting;
+        background: none;
+        font-size: 12px;
+        font-weight: bold;
+        text-transform: uppercase;
+        color: #5a7d86;
+        position: relative;
+        height: 15px;
+        line-height: 15px;
+        &:before {
+            @include transform(rotate(360deg));
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 0;
+            top: 3px;
+            left: 5px;
+            border-top: 9px solid #fff;
+            border-left: 5px solid transparent;
+            border-right: 5px solid transparent;
+            @-moz-document url-prefix() {
+                top: 4px;
+            }
+        }
+    }
+    &.collapsed {
+        padding: 6px 0 0 23px !important;
+        border-width: 3px 0 0 0;
+        border-radius: 0;
+        margin-bottom: 15px !important;
+        &>legend {
+            &:before {
+                border-left: 9px solid #fff;
+                border-top: 5px solid transparent;
+                border-bottom: 5px solid transparent;
+                border-right: 0;
+                top: 2px;
+                left: 6px;
+                @-moz-document url-prefix() {
+                    top: 3px;
+                }
+            }
+        }
+    }
+    &>div:not(.w50) {
+        margin-right: 20px;
+    }
+    &>div {
+        /*@extend .clearfix;*/ // commented because of tl_help bottom margin
+    }
+    &>div,
+    &>div[id^="sub_"]>div {
+        margin-bottom: 21px !important;
+        position: relative;
+        /*&>*:last-child {
+            //margin-bottom: 18px;
+            margin-bottom: -18px;
+        }
+        &>*:last-child:not(.tl_help) {
+            //margin-bottom: -18px;
+        }*/
+    }
+    h3 {
+        padding: 0 0 1px 0;
+        height: 17px;
+    }
+    .tl_error {
+        background: none !important;
+        color: #cd4237;
+        padding: 0 !important;
+        margin-bottom: 0;
+        -webkit-box-shadow: none;
+        -moz-box-shadow:    none;
+        box-shadow:         none;
+    }
+    label {
+        display: inline-block;
+        vertical-align: middle;
+    }
+}
+
+fieldset.tl_checkbox_container,
+fieldset.tl_radio_container {
+    margin: 0 0 2px 0;
+    legend {
+        margin-bottom: 6px;
+    }
+    label {
+        margin: 0 0 3px 0;
+        padding-left: 3px;
+    }
+}
+.tl_checkbox_single_container {
+    margin: 4px 0 1px 0;
+}
+.tl_checkbox {
+    display: inline-block;
+    vertical-align: middle;
+    margin: 0 3px 0 0;
+}
+
+.tl_submit,
+a.btn.primary {
+    @extend .simpleBtn;
+}
+.tl_submit:disabled,
+.tl_submit_container .tl_submit:disabled {
+    cursor: default;
+    background: #aaa !important;
+    padding-bottom: 11px !important;
+    margin-top: 0 !important;
+}
+
+#pages label.tl_change_selected {
+    // Commented because of pagepicker
+    /*display: inline-block;
+    vertical-align: middle;
+    margin: 4px 6px 0 0;*/
+}
+#pages .tl_tree_checkbox {
+    margin: 4px 3px 0 0;
+    display: inline-block;
+    vertical-align: middle;
+}
+
+.tl_radio_table {
+    margin: 4px 0 2px 0;
+    height: 34px;
+}
+
+.tl_right .tl_tree_checkbox,
+.tl_right .tl_tree_radio {
+    margin-top: 4px;
+}
+
+.tl_optionwizard {
+    margin-top: 5px;
+}
+
+/*
+.selector {
+    position: relative;
+    overflow: hidden;
+    cursor: pointer;
+    display: inline-block;
+    background: none !important;
+    border: none !important;
+    border-radius: 0;
+    text-align: left;
+
+    span {
+        @include abs-pos(0, 0, 0, 0);
+        @include borderBox;
+        text-overflow: ellipsis;
+        display: block;
+        overflow: hidden;
+        white-space: nowrap;
+        line-height: 34px;
+        padding: 0 30px 0 10px;
+        margin-right: 0;
+        background: $inputBgColor !important;
+        border: 1px solid $inputBorderColor !important;
+        border-radius: 4px;
+        color: $inputTextColor;
+        &:after {
+            @include abs-pos(auto, 50%, 10px);
+            content: '';
+            width: 0;
+            height: 0;
+            border-top: 5px solid #fff;
+            border-left: 5px solid transparent;
+            border-right: 5px solid transparent;
+            margin-top: -3px;
+        }
+    }
+
+    select {
+        @include abs-pos(0, 0);
+        opacity: 0;
+        border: none !important;
+        background: none;
+        line-height: 34px;
+        width: 100% !important;
+        margin: 0 !important;
+        padding: 0 !important;
+    }
+
+    &.active {}
+    &.focus span {
+        border-color: $inputFocusBorderColor !important;
+        outline: none !important;
+    }
+    &.disabled, &.disabled.active {
+        opacity: 0.5;
+    }
+}
+
+#main .selector select {
+    width: 100% !important;
+}*/
+
+.tl_panel,
+.tl_panel_bottom {
+    .tl_select,
+    .tl_text {
+        @include borderBox;
+        display: inline-block;
+        vertical-align: middle;
+        height: 28px;
+        padding-top: 4px;
+    }
+    .tl_select span {
+        line-height: 25px;
+        padding-top: 0;
+    }
+    .tl_text {
+        margin-top: 0;
+        margin-bottom: 0;
+    }
+    .tl_img_submit {
+        border: 0;
+        background: url("../images/reload.png") no-repeat 0 0;
+        cursor: pointer;
+        display: inline-block;
+        width: 20px;
+        height: 20px;
+        vertical-align: middle;
+        top: 1px;
+    }
+    /*.selector span {
+        line-height: 25px;
+    }*/
+}
+
+
+// Used in tl_layout
+.tl_modulewizard .tl_select {
+    width: 100%;
+}
+
+.multicolumnwizard {
+    .tl_text, .tl_select, .tl_mselect {
+        width: 100%;
+    }
+}

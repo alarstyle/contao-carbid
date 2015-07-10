@@ -1,15 +1,13 @@
 <?php
 
 /**
- * Pattern for Contao Open Source CMS
+ * Carbid for Contao Open Source CMS
  *
- * Copyright (C) 2014 Alexander Stulnikov
+ * Copyright (C) 2014-2015 Alexander Stulnikov
  *
- * @package    Pattern
- * @link       https://github.com/alarstyle/contao-pattern
+ * @link       https://github.com/alarstyle/contao-carbid
  * @license    http://opensource.org/licenses/MIT
  */
-
 
 namespace Carbid;
 
@@ -42,8 +40,6 @@ class PatternTemplate extends \Contao\FrontendTemplate {
         }
 
         $strTemplate = basename($strTemplate);
-
-        //return \TemplateLoader::getPath($strTemplate, $strFormat);
 
         return \TemplateLoader::getPath($strTemplate, $strFormat);
     }
@@ -124,6 +120,11 @@ class PatternTemplate extends \Contao\FrontendTemplate {
             }*/
 
             //$objVar['value'] = str_replace('$', '\$', $objVar['value']);
+
+            if (is_array($varValue))
+            {
+                $varValue = json_encode($varValue);
+            }
 
             $strBuffer = preg_replace('/{%\s*' . $varName . '\s*%}/s', $varValue, $strBuffer);
 

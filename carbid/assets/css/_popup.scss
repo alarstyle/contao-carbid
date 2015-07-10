@@ -1,0 +1,138 @@
+/*
+ * Popup
+ */
+#tl_ajaxOverlay {
+    position: fixed;
+    top: 0 !important;
+    background: #000;
+    -moz-opacity: .7;
+    opacity: 0.7;
+}
+#tl_ajaxBox {
+    background: $bodyBgColor;
+    border: 0;
+    color: #fff;
+    position: fixed;
+    top: 50% !important;
+    left: 50% !important;
+    margin-top: -40px;
+    margin-left: -100px;
+    line-height: 30px;
+    width: 200px !important;
+    -webkit-box-shadow: inset 0 -2px 0 rgba(0,0,0,.4);
+    -moz-box-shadow:    inset 0 -2px 0 rgba(0,0,0,.4);
+    box-shadow:         inset 0 -2px 0 rgba(0,0,0,.4);
+    &:after {
+        @include borderBox;
+        content: "";
+        width: 30px;
+        height: 30px;
+        float: right;
+        border-radius: 50%;
+        border: solid 2px rgba(255, 255, 255, 0.2);
+        border-top-color: #fff;
+        border-left-color: #fff;
+        -webkit-animation: spin 1s infinite linear;
+        animation: spin 1s infinite linear;
+    }
+}
+@-webkit-keyframes spin {
+    100% {
+        @include transform(rotate(360deg));
+    }
+}
+@keyframes spin {
+    100% {
+        @include transform(rotate(360deg));
+    }
+}
+#manager {
+    background: none;
+    background: rgba(255,255,255,.04);
+    border: 0;
+    text-align: center;
+    margin-top: 0;
+}
+
+#simple-modal-overlay {
+    background: #000;
+    height: 100% !important;
+}
+.simple-modal {
+    background: rgba(0,0,0,.9);
+    border: 0;
+    border-radius: 4px;
+    -webkit-box-shadow: none;
+    -moz-box-shadow:    none;
+    box-shadow:         none;
+    padding-bottom: 5px;
+    .simple-modal-header {
+        background: none;
+        border: 0;
+        border-radius: 0;
+        h1 {
+            color: #fff;
+        }
+    }
+    .simple-modal-footer {
+        background: none;
+        border: 0;
+        border-radius: 0;
+        -webkit-box-shadow: none;
+        -moz-box-shadow: none;
+        box-shadow: none;
+    }
+    a.close {
+        background: url("../images/close.png") no-repeat;
+        display: block;
+        font-size: 1px;
+        text-indent: -99999px;
+        width: 20px;
+        height: 20px;
+        opacity: 0.7;
+        top: 12px;
+        right: 11px;
+        &:hover {
+            opacity: 1;
+        }
+    }
+    iframe {
+        background: transparent;
+    }
+    .simple-modal-footer a.btn {
+        color: #fff;
+    }
+}
+
+body.popup {
+    background: rgba(0,0,0,.3);
+    padding: 0;
+    h2 {
+        margin-top: 0;
+    }
+    #container {
+        padding: 0 !important
+    }
+    #container,
+    #main {
+        //width: auto;
+        background: none;
+        -webkit-box-shadow: none;
+        -moz-box-shadow:    none;
+        box-shadow:         none;
+        float: none;
+        position: static;
+        overflow: visible;
+        width: auto;
+    }
+    .tl_panel, .tl_panel_bottom, .tl_formbody_submit, .tl_version_panel {
+        bottom: 0;
+    }
+    .tl_formbody_edit {
+        padding-bottom: 18px;
+    }
+}
+
+html.popup {
+    overflow: auto;
+}

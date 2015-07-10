@@ -1,24 +1,22 @@
 <?php
-/*
- * Copyright MADE/YOUR/DAY OG <mail@madeyourday.net>
- *
- * For the full copyright and license information, please view the LICENSE
- * file that was distributed with this source code.
- */
 
 /**
- * RockSolid Custom Elements DCA
+ * Carbid for Contao Open Source CMS
  *
- * @author Martin Auswöger <martin@madeyourday.net>
+ * Copyright (C) 2014-2015 Alexander Stulnikov
+ *
+ * @link       https://github.com/alarstyle/contao-carbid
+ * @license    http://opensource.org/licenses/MIT
  */
 
-$GLOBALS['TL_DCA']['tl_content']['config']['onload_callback'][] = array('Carbid\Pattern', 'getVariables');
-$GLOBALS['TL_DCA']['tl_content']['config']['onsubmit_callback'][] = array('Carbid\Pattern', 'saveVariables');
-$GLOBALS['TL_DCA']['tl_content']['fields']['pattern_data'] = array(
-	//'label' => &$GLOBALS['TL_LANG']['tl_content']['rsce_data'],
-	'exclude' => true,
+$GLOBALS['TL_DCA']['tl_content']['config']['onload_callback'][]     = array('Carbid\Pattern', 'getVariables');
+$GLOBALS['TL_DCA']['tl_content']['config']['onsubmit_callback'][]   = array('Carbid\Pattern', 'saveVariables');
+$GLOBALS['TL_DCA']['tl_content']['fields']['pattern_data']          = array(
+	'label'     => &$GLOBALS['TL_LANG']['tl_content']['pattern_data'],
+	'exclude'   => true,
 	'inputType' => 'hidden',
-	'sql' => "mediumblob NULL",
+    'eval'      => array('tl_class' => 'hidden'),
+	'sql'       => "mediumblob NULL",
 	'save_callback' => array(
 		array('Carbid\Pattern', 'saveData'),
 	),

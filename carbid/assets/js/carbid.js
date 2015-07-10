@@ -8,31 +8,30 @@
  * @license    http://opensource.org/licenses/MIT
  */
 
-(function(Backend) {
+(function(Backend, Stylect, $) {
+
+    var html = document.getElementsByTagName("html")[0],
+        body = document.getElementsByTagName("body")[0];
+
+    html.classList.add('js');
 
 
     /**
      * Adding custom classes to body tag
      */
-    function addCustomClasses() {
+    /*function addCustomClasses() {
         var strClasses = "";
         if ( window.self !== window.top ) {
             strClasses += " popup";
         }
-        if(('ontouchstart' in window) || window.DocumentTouch && document instanceof DocumentTouch) {
-            strClasses += " touch";
-        }
-        else {
-            strClasses += " no-touch";
-        }
         document.body.className = document.body.className + strClasses;
-    }
+    }*/
 
 
     /**
      * Highlight element on mouse over action icon
      */
-    function initElementActonsHighlight() {
+    function initElementActionsHighlight() {
         var elements, i;
         // metadata
         elements = document.querySelectorAll('#ctrl_meta li');
@@ -56,14 +55,111 @@
         }
     }
 
+    function initLogin() {
+        $('.tl_login_table').each(function() {
+           var $this = $(this),
+               $nameLabel = $this.find('label[for="username"]'),
+               $passwordLabel = $this.find('label[for="password"]'),
+               $nameInput = $this.find('#username'),
+               $passwordInput = $this.find('#password');
+            $nameInput.prop('placeholder', $nameLabel.html());
+            $passwordInput.prop('placeholder', $passwordLabel.html());
+        });
+    }
+
+    function initHeader() {
+        var $header = $('#header'),
+            $tmenu = $header.find('#tmenu'),
+            $alerts = $header.find('.tl_permalert'),
+            $menuToggler = $('<div id="menuToggler"><i></i></div>'),
+            $tmenuToggler = $('<div class="toggler"></div>'),
+            $tmenuInner = $('<div class="inner"></div>'),
+            $alertContainer = $('<div id="alerts"></div>'),
+            $alertToggler = $('<div class="toggler"></div>'),
+            $alertInner = $('<div class="inner"></div>');
+        $header.prepend($menuToggler);
+        $tmenu.wrapInner($tmenuInner);
+        $tmenu.prepend($tmenuToggler);
+        $tmenu.after($alertContainer);
+        $alertContainer.append($alertToggler).append($alertInner);
+        $alertInner.append($alerts);
+        if (!$alerts.length) {
+            $alertContainer.addClass('hidden');
+        }
+        function openMenu() {
+            closeAlerts();
+            if ($tmenu.hasClass('opened')) {
+                return;
+            }
+            $tmenu.addClass('opened');
+            $(document).on('click', closeMenu);
+        }
+        function closeMenu() {
+            $(document).off('click', closeMenu);
+            $tmenu.removeClass('opened');
+        }
+        function openAlerts() {
+            closeMenu();
+            if ($alertContainer.hasClass('opened')) {
+                return;
+            }
+            $alertContainer.addClass('opened');
+            $(document).on('click', closeAlerts);
+        }
+        function closeAlerts() {
+            $(document).off('click', closeAlerts);
+            $alertContainer.removeClass('opened');
+        }
+        $alertContainer.add($tmenu).on('click', function(e) {
+            e.stopPropagation();
+        });
+        $tmenuToggler.click(function(e) {
+            e.stopPropagation();
+            if ($tmenu.hasClass('opened')) {
+                closeMenu();
+            }
+            else {
+                openMenu();
+            }
+        });
+        $alertToggler.click(function(e) {
+            e.stopPropagation();
+            if ($alertContainer.hasClass('opened')) {
+                closeAlerts();
+            }
+            else {
+                openAlerts();
+            }
+        });
+    }
+
+    function initScroll() {
+        var $left = $('#left');
+        $('#tl_navigation').slimScroll({
+            height: '100%',
+            opacity: 1,
+            color: '#000',
+            size: '4px',
+            distance: '0'
+        });
+    }
+
     window.addEvent('domready', function() {
-        addCustomClasses();
-        initElementActonsHighlight();
+        //addCustomClasses();
+        initLogin();
+        initHeader();
+        initScroll();
+        initElementActionsHighlight();
     });
 
-})(window.Backend);
+    /*Stylect.convertSelects = function() {
+        $('select').not('.tl_chosen').uniform({selectAutoWidth: false});
+    };*/
 
-Carbid = {
+})(window.Backend, window.Stylect, window.jQuery);
+
+
+var Carbid = {
 
     /**
      *
@@ -154,5 +250,80 @@ Carbid = {
             opacity: 0.6,
             handle: '.drag-handle'
         });
+    },
+
+    /**
+     * Open a selector page in a modal window
+     *
+     * @param {object} options An optional options object
+     */
+    openModalSelector: function(options) {
+        var opt = options || {},
+            max = (window.getSize().y-180).toInt();
+        if (!opt.height || opt.height > max) opt.height = max;
+        var M = new SimpleModal({
+            'width': opt.width,
+            'btn_ok': Contao.lang.close,
+            'draggable': false,
+            'overlayOpacity': .5,
+            'onShow': function() { document.body.setStyle('overflow', 'hidden'); },
+            'onHide': function() { document.body.setStyle('overflow', 'auto'); }
+        });
+        M.addButton(Contao.lang.close, 'btn', function() {
+            this.hide();
+        });
+        M.addButton(Contao.lang.apply, 'btn primary', function() {
+            var val = [],
+                frm = null,
+                frms = window.frames;
+            for (i=0; i<frms.length; i++) {
+                if (frms[i].name == 'simple-modal-iframe') {
+                    frm = frms[i];
+                    break;
+                }
+            }
+            if (frm === null) {
+                alert('Could not find the SimpleModal frame');
+                return;
+            }
+            if (frm.document.location.href.indexOf('contao/main.php') != -1) {
+                alert(Contao.lang.picker);
+                return; // see #5704
+            }
+            var inp = frm.document.getElementById('tl_listing').getElementsByTagName('input');
+            for (var i=0; i<inp.length; i++) {
+                if (!inp[i].checked || inp[i].id.match(/^check_all_/)) continue;
+                if (!inp[i].id.match(/^reset_/)) val.push(inp[i].get('value'));
+            }
+            if (opt.tag) {
+                $(opt.tag).value = val.join(',');
+                if (opt.url.match(/page\.php/)) {
+                    $(opt.tag).value = '{{link_url::' + $(opt.tag).value + '}}';
+                }
+                opt.self.set('href', opt.self.get('href').replace(/&value=[^&]*/, '&value='+val.join(',')));
+            } else {
+                $('ctrl_'+opt.id).value = val.join("\t");
+                var act = 'reloadPicker';
+                new Request.Contao({
+                    field: $('ctrl_'+opt.id),
+                    evalScripts: false,
+                    onRequest: AjaxRequest.displayBox(Contao.lang.loading + ' …'),
+                    onSuccess: function(txt, json) {
+                        $('ctrl_'+opt.id).getParent('div').set('html', json.content);
+                        json.javascript && Browser.exec(json.javascript);
+                        AjaxRequest.hideBox();
+                        window.fireEvent('ajax_change');
+                    }
+                }).post({'action':act, 'name':opt.id, 'value':$('ctrl_'+opt.id).value, 'REQUEST_TOKEN':Contao.request_token});
+            }
+            this.hide();
+        });
+        M.show({
+            'title': opt.title,
+            'contents': '<iframe src="' + opt.url + '" name="simple-modal-iframe" width="100%" height="' + opt.height + '" frameborder="0"></iframe>',
+            'model': 'modal'
+        });
     }
-}
+
+};
+

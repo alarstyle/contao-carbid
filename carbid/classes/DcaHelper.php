@@ -3,13 +3,11 @@
 /**
  * Carbid for Contao Open Source CMS
  *
- * Copyright (C) 2014 Alexander Stulnikov
+ * Copyright (C) 2014-2015 Alexander Stulnikov
  *
- * @package    Carbid
  * @link       https://github.com/alarstyle/contao-carbid
  * @license    http://opensource.org/licenses/MIT
  */
-
 
 namespace Carbid;
 
@@ -59,7 +57,7 @@ class DcaHelper extends \Backend
         }
 
         // Check permissions AFTER checking the tid, so hacking attempts are logged
-        if (!$this->User->isAdmin && !$this->User->hasAccess($this->tableName.'::published', 'alexf'))
+        if (!$this->User->hasAccess($this->tableName.'::published', 'alexf'))
         {
             return '';
         }

@@ -1,0 +1,158 @@
+#tmenu {
+    float: right;
+    padding: 0;
+    text-align: left;
+    position: absolute;
+    top: 5px;
+    right: 7px;
+    a {
+        border-radius: 0;
+        color: #fff;
+        display: block;
+        white-space: nowrap;
+        margin: 0;
+        font-size: 14px;
+    }
+    span {
+        display: none;
+    }
+    .toggler {
+        @include disableSelecting;
+        @include borderBox;
+        border: 1px solid transparent;
+        border-bottom: 0;
+        border-radius: 5px 5px 0 0;
+        cursor: pointer;
+        width: 33px;
+        height: 32px;
+        z-index: 100;
+        position: relative;
+        &:before {
+            background: $iconTopMenu no-repeat 50% 50%;
+            background-size: contain;
+            content: '';
+            cursor: pointer;
+            display: block;
+            width: 25px;
+            height: 25px;
+            margin: 2px 0 0 3px;
+        }
+    }
+    .inner {
+        background: #091519;
+        border: 1px solid #030d10;
+        border-radius: 5px 0 5px 5px;
+        display: none;
+        padding: 5px 40px 5px 10px;
+        position: absolute;
+        right: 0;
+        margin-top: -1px;
+        span {
+            display: block;
+        }
+    }
+    &.opened {
+        .toggler {
+            background: #091519;
+            border-color: #030d10;
+        }
+        .inner {
+            display: block;
+        }
+    }
+}
+
+#menuToggler {
+    @include disableSelecting;
+    cursor: pointer;
+    position: absolute;
+    top: 8px;
+    left: 7px;
+    width: 25px;
+    height: 25px;
+    i,
+    &:before,
+    &:after {
+        background: #9b9b9b;
+        content: '';
+        display: block;
+        height: 3px;
+        width: 20px;
+        position: absolute;
+        left: 2px;
+        top: 10px;
+    }
+    &:before {
+        top: 3px;
+    }
+    &:after {
+        top: 17px;
+    }
+    &:hover {
+        i,
+        &:before,
+        &:after {
+            background: #fff;
+        }
+    }
+}
+
+#header .tl_permalert {
+    display: none;
+}
+#alerts {
+    position: absolute;
+    top: 5px;
+    right: 45px;
+    .toggler {
+        @include disableSelecting;
+        @include borderBox;
+        @include transform(translateZ(0));
+        border: 1px solid transparent;
+        border-bottom: 0;
+        border-radius: 5px 5px 0 0;
+        cursor: pointer;
+        width: 33px;
+        height: 32px;
+        z-index: 100;
+        position: relative;
+        &:before {
+            background: #cc324b;
+            border-radius: 50%;
+            content: '!';
+            display: block;
+            color: #fff;
+            width: 25px;
+            height: 25px;
+            font-weight: bold;
+            font-size: 16px;
+            line-height: 25px;
+            text-align: center;
+            margin: 2px 0 0 3px;
+        }
+    }
+    .inner {
+        background: #091519;
+        border: 1px solid #030d10;
+        border-radius: 5px 0 5px 5px;
+        display: none;
+        padding: 10px;
+        position: absolute;
+        right: 0;
+        margin-top: -1px;
+    }
+    .tl_permalert {
+        display: block !important;
+        min-width: 300px;
+        margin: 0;
+    }
+    &.opened {
+        .toggler {
+            background: #091519;
+            border-color: #030d10;
+        }
+        .inner {
+            display: block;
+        }
+    }
+}

@@ -1,0 +1,62 @@
+.do-files.act-move {
+    div.tl_tbox {
+        border: none;
+        margin: 0 0 50px 0 !important;
+        padding: 0 !important;
+        position: relative;
+        &>div {
+            margin: 10px 0 7px 0 !important;
+        }
+    }
+    h2.sub_headline {
+        display: block;
+        text-transform: none;
+        background: none;
+        padding: 0;
+    }
+    h3 {
+        display: none;
+    }
+}
+
+.dz-container {
+    border: 3px dashed rgba(255,255,255,.9) !important;
+    margin: 10px 0 7px 0 !important;
+
+    .dz-message {
+        text-align:center;
+    }
+    .dropzone-previews {
+        margin-bottom: 0 !important;
+    }
+    .dropzone, .dropzone-previews {
+        .dz-preview {
+            background: rgba(255, 255, 255, .9);
+            border: 0;
+            .dz-details {
+                background: #151515 url("../images/dz-details.png") no-repeat 50% 50%;
+                .dz-filename {
+                    color: rgba(255,255,255,.7);
+                }
+                .dz-size {
+                    color: rgba(0, 0, 0, .9);
+                }
+                img {
+                    @include transition(opacity 0.2s ease);
+                    opacity: 0.5;
+                }
+            }
+            .dz-error-message {
+                background: rgba(204,51,51,.9);
+                border-radius: 4px;
+                color: #fff;
+            }
+
+            &:hover {
+                .dz-details img {
+                    opacity: 1 !important;
+                }
+            }
+        }
+    }
+}
