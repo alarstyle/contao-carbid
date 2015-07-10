@@ -1214,17 +1214,29 @@ div.tl_labels.ok {
  * Install page
  */
 .template-be_install {
+    #menuToggler {
+        display: none;
+    }
+    &.js #header h1 {
+        margin-left: 12px !important;
+    }
     #container {
-        width: 760px;
-        padding: 0;
+        max-width: 760px;
+        padding: 0 10px;
+        margin: 0 auto;
+        h3 {
+            padding-top: 0;
+        }
     }
     #main {
         margin: 0 auto;
-        padding: 10px 0 2px 0;
+        padding: 60px 0 0 0;
         float: none;
     }
     .tl_formbody_submit {
         background: none;
+        bottom: auto !important;
+        padding: 0;
         .tl_submit {
             margin-left: -2px;
         }
@@ -1243,6 +1255,10 @@ div.tl_labels.ok {
         &:hover {
             opacity: 1;
         }
+    }
+    .tl_submit_container {
+        padding: 0;
+        text-align: left;
     }
 }
 
