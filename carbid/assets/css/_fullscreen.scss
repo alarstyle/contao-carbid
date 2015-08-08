@@ -1,7 +1,7 @@
 .js  {
     #header {
-        @include box-shadow(0 1px 7px rgba(0,0,0,1));
         //background: #142227;
+        box-shadow: 0 1px 7px rgba(0,0,0,1);
         position: absolute;
         top: 0;
         left: 0;

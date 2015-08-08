@@ -19,9 +19,7 @@
     margin-left: -100px;
     line-height: 30px;
     width: 200px !important;
-    -webkit-box-shadow: inset 0 -2px 0 rgba(0,0,0,.4);
-    -moz-box-shadow:    inset 0 -2px 0 rgba(0,0,0,.4);
-    box-shadow:         inset 0 -2px 0 rgba(0,0,0,.4);
+    box-shadow: inset 0 -2px 0 rgba(0,0,0,.4);
     &:after {
         @include borderBox;
         content: "";
@@ -62,9 +60,7 @@
     background: rgba(0,0,0,.9);
     border: 0;
     border-radius: 4px;
-    -webkit-box-shadow: none;
-    -moz-box-shadow:    none;
-    box-shadow:         none;
+    box-shadow: none;
     padding-bottom: 5px;
     .simple-modal-header {
         background: none;
@@ -78,8 +74,6 @@
         background: none;
         border: 0;
         border-radius: 0;
-        -webkit-box-shadow: none;
-        -moz-box-shadow: none;
         box-shadow: none;
     }
     a.close {
@@ -117,9 +111,7 @@ body.popup {
     #main {
         //width: auto;
         background: none;
-        -webkit-box-shadow: none;
-        -moz-box-shadow:    none;
-        box-shadow:         none;
+        box-shadow: none;
         float: none;
         position: static;
         overflow: visible;

@@ -1,0 +1,55 @@
+.template-be_diff {
+
+    &.do-tpl_editor {
+        #diff .replace.left, #diff .delete.left {
+            float: none;
+            clear: none;
+            width: auto;
+        }
+        #diff .replace.right, #diff .insert.right {
+            margin-left: 0;
+        }
+    }
+
+}
+
+#diff {
+    .change {
+        background: #394264;
+        border: 0;
+        border-radius: 4px;
+    }
+    .change h2 {
+        background: none;
+        border: 0;
+        color: #fff;
+        padding: 7px 10px;
+    }
+    .change dl {
+        @extend .clearfix;
+        padding: 0 10px 10px 10px;
+    }
+    .change dd {}
+    .replace.left,
+    .delete.left {
+        @include borderBox;
+        background: #ea7386;
+        //float: left;
+        //clear: left;
+        //width: 50%;
+    }
+    .replace.right,
+    .insert.right {
+        @include borderBox;
+        background: #95e970;
+        //margin-left: 50%;
+    }
+    .replace del {
+        color: #fff;
+        background: #cc324b;
+    }
+    .replace ins {
+        color: #fff;
+        background: #61cc32;
+    }
+}

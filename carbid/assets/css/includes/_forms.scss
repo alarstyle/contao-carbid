@@ -184,9 +184,7 @@
     }
     a {
         background: none !important;
-        -webkit-box-shadow: none !important;
-        -moz-box-shadow:    none !important;
-        box-shadow:         none !important;
+        box-shadow: none !important;
         position: static !important;
     }
     b, a div {
@@ -360,8 +358,9 @@ fieldset.tl_box,
     margin: 0 0 25px 0 !important;
     position: relative;
     &>legend {
-        @include disableSelecting;
+        @extend .disableSelecting;
         background: none;
+        display: block;
         font-size: 12px;
         font-weight: bold;
         text-transform: uppercase;
@@ -369,6 +368,10 @@ fieldset.tl_box,
         position: relative;
         height: 15px;
         line-height: 15px;
+        overflow: hidden;
+        max-width: 90%;
+        text-overflow: ellipsis;
+        white-space: nowrap;
         &:before {
             @include transform(rotate(360deg));
             content: '';
@@ -431,9 +434,7 @@ fieldset.tl_box,
         color: #cd4237;
         padding: 0 !important;
         margin-bottom: 0;
-        -webkit-box-shadow: none;
-        -moz-box-shadow:    none;
-        box-shadow:         none;
+        box-shadow: none;
     }
     label {
         display: inline-block;

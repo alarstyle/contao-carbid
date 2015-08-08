@@ -6,6 +6,12 @@ Roadmap
 - add missing icons
 
 
+Version 2.0.0 alpha2 (2015-08-08)
+---------------------------------
+- fixed version comparison
+- added icons
+
+
 Version 2.0.0 alpha1 (2015-07-10)
 ---------------------------------
 - redesign

@@ -1,0 +1,48 @@
+.template-be_install {
+    #menuToggler {
+        display: none;
+    }
+    &.js #header h1 {
+        margin-left: 12px !important;
+    }
+    #container {
+        max-width: 760px;
+        padding: 0 10px;
+        margin: 0 auto;
+        h3 {
+            padding-top: 0;
+        }
+    }
+    #main {
+        margin: 0 auto;
+        padding: 60px 0 0 0;
+        float: none;
+    }
+    .tl_formbody_submit {
+        background: none;
+        bottom: auto !important;
+        padding: 0;
+        .tl_submit {
+            margin-left: -2px;
+        }
+    }
+    #container h2 {
+        background: url("../images/install.png") no-repeat 0 50%;
+        margin-top: 0;
+        padding: 13px 0 10px 50px;
+    }
+    #go_to_login a {
+        background: url("../images/login2.png") no-repeat 0 50%;
+        padding: 2px 0 2px 25px;
+        display: inline-block;
+        color: #fff;
+        opacity: 0.7;
+        &:hover {
+            opacity: 1;
+        }
+    }
+    .tl_submit_container {
+        padding: 0;
+        text-align: left;
+    }
+}

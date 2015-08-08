@@ -57,7 +57,24 @@ $mediumWidth:    991px;
     bottom: $bottom;
 }
 
-@mixin disableSelecting() {
+@mixin borderBox() {
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing:    border-box;
+    box-sizing:         border-box;
+}
+
+@mixin transition($transitions ...) {
+    -webkit-transition: $transitions;
+    transition:         $transitions;
+}
+
+@mixin transform($transform ...) {
+    -webkit-transform: $transform;
+    -ms-transform: $transform;
+    transform: $transform;
+}
+
+.disableSelecting {
     -webkit-tap-highlight-color: rgba(0,0,0,0);
     -webkit-touch-callout: none;
     -webkit-user-select: none;
@@ -66,36 +83,10 @@ $mediumWidth:    991px;
     user-select: none;
 }
 
-@mixin borderBox() {
-    -webkit-box-sizing: border-box;
-    -moz-box-sizing:    border-box;
-    box-sizing:         border-box;
-}
-
-@mixin box-shadow($shadow) {
-    -webkit-box-shadow: $shadow;
-    -moz-box-shadow: $shadow;
-    box-shadow: $shadow;
-}
-
-@mixin transition($transitions ...) {
-    -webkit-transition: $transitions;
-    -moz-transition:    $transitions;
-    -ms-transition:     $transitions;
-    -o-transition:      $transitions;
-    transition:         $transitions;
-}
-
-@mixin transform($transform ...) {
-    -webkit-transform: $transform;
-    -moz-transform: $transform;
-    -ms-transform: $transform;
-    transform: $transform;
-}
-
 .simpleBtn {
     @include borderBox;
-    @include disableSelecting;
+    @include transition(background 0.2s ease, color 0.2s ease);
+    @extend .disableSelecting;
     -moz-appearance: none;
     -webkit-appearance: none;
     color: $btnTextColor !important;
@@ -114,14 +105,7 @@ $mediumWidth:    991px;
     text-decoration: none !important;
     height: 30px;
     white-space: nowrap;
-    -webkit-box-shadow: none !important;
-    -moz-box-shadow:    none !important;
     box-shadow:         none !important;
-    -webkit-transition: all 0.2s ease;
-    -moz-transition:    all 0.2s ease;
-    -ms-transition:     all 0.2s ease;
-    -o-transition:      all 0.2s ease;
-    transition:         all 0.2s ease;
     &:hover {
         background: $btnHoverBgColor !important;
     }
@@ -148,15 +132,17 @@ a, input, button:focus {
 
 
 
-@import 'icons';
-@import 'layout';
-@import 'header';
-@import 'forms';
-@import 'popup';
+@import 'includes/icons';
+@import 'includes/layout';
+@import 'includes/header';
+@import 'includes/forms';
+@import 'includes/popup';
 
-@import "loginPage";
-@import "mainPage";
-@import "confirmPage";
+@import "includes/templates/be_login";
+@import "includes/templates/be_main";
+@import "includes/templates/be_confirm";
+@import "includes/templates/be_diff";
+@import "includes/templates/be_install";
 
 
 
@@ -411,7 +397,7 @@ h2.sub_headline_index {
 }
 
 .tl_folder label.tl_change_selected {
-    @include disableSelecting;
+    @extend .disableSelecting;
     position: absolute;
     top: 0;
     left: 0;
@@ -471,47 +457,6 @@ h2.sub_headline_index {
     margin-left: 20px !important;
 }*/
 
-
-#diff {
-    .change {
-        background: #394264;
-        border: 0;
-        border-radius: 4px;
-    }
-    .change h2 {
-        background: none;
-        border: 0;
-        color: #fff;
-        padding: 7px 10px;
-    }
-    .change dl {
-        @extend .clearfix;
-        padding: 0 10px 10px 10px;
-    }
-    .change dd {}
-    .replace.left,
-    .delete.left {
-        @include borderBox;
-        background: #ea7386;
-        float: left;
-        clear: left;
-        width: 50%;
-    }
-    .replace.right,
-    .insert.right {
-        @include borderBox;
-        background: #95e970;
-        margin-left: 50%;
-    }
-    .replace del {
-        color: #fff;
-        background: #cc324b;
-    }
-    .replace ins {
-        color: #fff;
-        background: #61cc32;
-    }
-}
 
 
 .tl_edit_preview img {
@@ -986,7 +931,7 @@ fieldset.tl_checkbox_tree {
     }
     &>label {
         @include borderBox;
-        @include disableSelecting;
+        @extend .disableSelecting;
         padding: 5px 0 5px 26px;
         width: 100%;
     }
@@ -1048,9 +993,7 @@ div.tl_labels.ok {
     height: 170px !important;
     padding: 10px !important;
     margin-top: -10px;
-    -webkit-box-shadow: 0px 2px 3px rgba(0,0,0,0.5);
-    -moz-box-shadow:    0px 2px 3px rgba(0,0,0,0.5);
-    box-shadow:         0px 2px 3px rgba(0,0,0,0.5);
+    box-shadow: 0px 2px 3px rgba(0,0,0,0.5);
     table {
         width: 100%;
         height: 100%;
@@ -1087,7 +1030,7 @@ div.tl_labels.ok {
         }
     }
     .header {
-        @include disableSelecting;
+        @extend .disableSelecting;
         padding: 0 !important;
         border-bottom: 1px solid #5a7d86 !important;
         font-weight: bold;
@@ -1208,59 +1151,6 @@ div.tl_labels.ok {
 @import "colorpicker";
 @import "dropzone";
 
-
-
-/*
- * Install page
- */
-.template-be_install {
-    #menuToggler {
-        display: none;
-    }
-    &.js #header h1 {
-        margin-left: 12px !important;
-    }
-    #container {
-        max-width: 760px;
-        padding: 0 10px;
-        margin: 0 auto;
-        h3 {
-            padding-top: 0;
-        }
-    }
-    #main {
-        margin: 0 auto;
-        padding: 60px 0 0 0;
-        float: none;
-    }
-    .tl_formbody_submit {
-        background: none;
-        bottom: auto !important;
-        padding: 0;
-        .tl_submit {
-            margin-left: -2px;
-        }
-    }
-    #container h2 {
-        background: url("../images/install.png") no-repeat 0 50%;
-        margin-top: 0;
-        padding: 13px 0 10px 50px;
-    }
-    #go_to_login a {
-        background: url("../images/login2.png") no-repeat 0 50%;
-        padding: 2px 0 2px 25px;
-        display: inline-block;
-        color: #fff;
-        opacity: 0.7;
-        &:hover {
-            opacity: 1;
-        }
-    }
-    .tl_submit_container {
-        padding: 0;
-        text-align: left;
-    }
-}
 
 
 /*

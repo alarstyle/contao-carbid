@@ -17,7 +17,7 @@
         display: none;
     }
     .toggler {
-        @include disableSelecting;
+        @extend .disableSelecting;
         @include borderBox;
         border: 1px solid transparent;
         border-bottom: 0;
@@ -63,7 +63,7 @@
 }
 
 #menuToggler {
-    @include disableSelecting;
+    @extend .disableSelecting;
     cursor: pointer;
     position: absolute;
     top: 8px;
@@ -105,7 +105,7 @@
     top: 5px;
     right: 45px;
     .toggler {
-        @include disableSelecting;
+        @extend .disableSelecting;
         @include borderBox;
         @include transform(translateZ(0));
         border: 1px solid transparent;
